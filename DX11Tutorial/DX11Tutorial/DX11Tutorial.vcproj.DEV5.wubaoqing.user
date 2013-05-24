@@ -10,7 +10,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="E:\Visual Studio 2008\Projects\DX11Tutorial\Debug"
+				WorkingDirectory="D:\evad11engine\DX11Tutorial\Debug"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"

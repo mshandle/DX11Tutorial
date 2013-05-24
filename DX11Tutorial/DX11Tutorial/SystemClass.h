@@ -27,6 +27,8 @@ public:
 	D3DClass* renderModul();
 	
 	HWND*	HWnd();
+
+	void WarningDialog(WCHAR* tile, WCHAR* Msg); 
 private:
 	void calculateFrameTime();
 	bool Frame();

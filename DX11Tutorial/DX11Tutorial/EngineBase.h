@@ -22,8 +22,8 @@ class StringHashMap : public std::map<std::string, _Ty,FastLessCompare>
 {
 };
 
-#define  SAFE_RELEASE(X) if(NULL != X){delete X; X = NULL;}
-
+#define  SAFE_DELETE(X) if(NULL != X){delete X; X = NULL;}
+#define  SAFE_RELEASE(X) if(NULL !=X){X->Release();X = NULL; }
 typedef unsigned __int64	uint64;
 
 #endif//_ENGINEBASE_H_
