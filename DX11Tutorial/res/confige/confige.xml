@@ -1,0 +1,11 @@
+<confige>
+	<Shader>
+		<staticModleShader>../res/shader/staticModleShader.xml</staticModleShader>
+		<SpriteShader>../res/shader/spriteshader.xml
+</SpriteShader>
+	</Shader>
+	<Modle>
+		<Cube>../res/modle/cube.obj
+</Cube>
+	</Modle>
+</confige>

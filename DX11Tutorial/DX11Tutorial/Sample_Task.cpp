@@ -3,6 +3,7 @@
 #include "BufferAndShaderSample.h"
 #include "TextureSample.h"
 #include "ModleLoaderSample.h"
+#include "XMLTestSample.h"
 Sample_Task::Sample_Task(void):m_psample(NULL)
 {
 	MainTaskManager::Instance().add(TASK_SAMPLE, this);
@@ -15,7 +16,7 @@ Sample_Task::~Sample_Task(void)
 
 bool Sample_Task::init()
 {
-	m_psample = new TextureSample();
+	m_psample = new XMLTestSample();
 	if(NULL != m_psample)
 		return m_psample->init();
 	return false;
