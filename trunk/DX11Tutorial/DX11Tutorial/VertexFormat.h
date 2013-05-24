@@ -9,4 +9,10 @@ struct XYZRGBA
 	D3DXVECTOR4 color;
 };
 
+struct XYZUV
+{
+	D3DXVECTOR3 position;
+	D3DXVECTOR2 uv;
+};
+
 #endif//VERTEXFORMAT_H_

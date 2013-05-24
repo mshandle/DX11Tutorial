@@ -301,6 +301,26 @@
 					RelativePath=".\ColorShaderClass.h"
 					>
 				</File>
+				<File
+					RelativePath=".\TextureShaderClass.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TextureShaderClass.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Texture"
+				>
+				<File
+					RelativePath=".\Texture.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Texture.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -327,7 +347,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ModleLoaderSample.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ModleLoaderSample.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SampleInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TextureSample.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TextureSample.h"
 				>
 			</File>
 			<Filter
@@ -341,6 +377,14 @@
 					RelativePath="..\res\shader\color.vs"
 					>
 				</File>
+				<File
+					RelativePath="..\res\shader\texture.ps"
+					>
+				</File>
+				<File
+					RelativePath="..\res\shader\texture.vs"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -352,6 +396,18 @@
 			</File>
 			<File
 				RelativePath=".\ClientCamera.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="ResMrg"
+			>
+			<File
+				RelativePath=".\ModleLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ModleLoader.h"
 				>
 			</File>
 		</Filter>

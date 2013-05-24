@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DX11Tutorial", "DX11Tutorial\DX11Tutorial.vcproj", "{34EC7833-D220-436B-A9F4-D013F796B598}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "libres\tinyxml\tinyxml.vcproj", "{D9E2F598-6E2B-4140-A842-DA39B676CB98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{34EC7833-D220-436B-A9F4-D013F796B598}.Debug|Win32.Build.0 = Debug|Win32
 		{34EC7833-D220-436B-A9F4-D013F796B598}.Release|Win32.ActiveCfg = Release|Win32
 		{34EC7833-D220-436B-A9F4-D013F796B598}.Release|Win32.Build.0 = Release|Win32
+		{D9E2F598-6E2B-4140-A842-DA39B676CB98}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D9E2F598-6E2B-4140-A842-DA39B676CB98}.Debug|Win32.Build.0 = Debug|Win32
+		{D9E2F598-6E2B-4140-A842-DA39B676CB98}.Release|Win32.ActiveCfg = Release|Win32
+		{D9E2F598-6E2B-4140-A842-DA39B676CB98}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

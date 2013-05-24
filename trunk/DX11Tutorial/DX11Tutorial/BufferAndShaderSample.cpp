@@ -66,14 +66,14 @@ bool BufferAndShaderSample::init()
 	if(m_vertexBuffer)
 	{
 		result =m_vertexBuffer->init(sizeof(XYZRGBA) * m_vertexCount, (void*)vertices);
-		SAFE_RELEASE(vertices);
+		SAFE_DELETE(vertices);
 	}
 	
 	m_indexBuffer = new D3DIndexBuffer();
 	if(m_indexBuffer)
 	{
 		result = m_indexBuffer->init(sizeof(unsigned long) * m_indexCount, (void*)indices);
-		SAFE_RELEASE(indices);
+		SAFE_DELETE(indices);
 	}
 	if(NULL == m_pshader)
 		m_pshader = new ColorShaderClass();
@@ -86,8 +86,8 @@ bool BufferAndShaderSample::init()
 
 void BufferAndShaderSample::fini()
 {
-	SAFE_RELEASE(m_vertexBuffer)
-	SAFE_RELEASE(m_indexBuffer)
+	SAFE_DELETE(m_vertexBuffer)
+	SAFE_DELETE(m_indexBuffer)
 	m_pshader->Shutdown();
 }
 

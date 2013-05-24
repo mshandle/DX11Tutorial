@@ -80,7 +80,7 @@ void SystemClass::Shutdown()
 {
 	// Release the graphics object.
 
-	SAFE_RELEASE(m_D3D);
+	SAFE_DELETE(m_D3D);
 	
 	MainTaskManager::Instance().fini();
 	// Shutdown the window.
@@ -333,6 +333,11 @@ D3DClass* SystemClass::renderModul()
 HWND* SystemClass::HWnd()
 {
 	return &m_hwnd;
+}
+
+void SystemClass::WarningDialog( WCHAR* tile, WCHAR* Msg )
+{
+		MessageBox(m_hwnd, tile, Msg, MB_OK);
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
