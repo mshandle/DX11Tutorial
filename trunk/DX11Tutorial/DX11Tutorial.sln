@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DX11Tutorial", "DX11Tutorial\DX11Tutorial.vcproj", "{34EC7833-D220-436B-A9F4-D013F796B598}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D9E2F598-6E2B-4140-A842-DA39B676CB98} = {D9E2F598-6E2B-4140-A842-DA39B676CB98}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "libres\tinyxml\tinyxml.vcproj", "{D9E2F598-6E2B-4140-A842-DA39B676CB98}"
 EndProject
