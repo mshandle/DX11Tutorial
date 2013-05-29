@@ -80,7 +80,7 @@ bool BufferAndShaderSample::init()
 
 	result = m_pshader->Initialize(SystemClass::Instance().renderModul()->GetDevice(), *(SystemClass::Instance().HWnd()));
 
-	ClientCamera::instance().SetPosition(0.0f, 0.0f, -10.0f);
+	ClientCamera::instance().SetPosition(0.0f, 0.0f, -2.0f);
 	return result;
 }
 

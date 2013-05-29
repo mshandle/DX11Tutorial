@@ -46,11 +46,7 @@ bool D3DVertexBuffer::init( unsigned int memsize, void* memory )
 
 void D3DVertexBuffer::fini()
 {
-	if(NULL != m_buffer)
-	{
-		m_buffer->Release();
-		m_buffer = NULL;
-	}
+	SAFE_RELEASE(m_buffer);
 	m_memsize = 0;
 
 }
