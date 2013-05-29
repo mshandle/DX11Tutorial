@@ -28,10 +28,13 @@ public:
 
 	void			insert(const std::string key, ShaderCBuffer* object);
 private:
+
+	void			InitConstanceMap();
+private:
 	CBUFFERMAP m_pBufferMap;
 };
 
-class WorldViewProject :ShaderCBuffer
+class WorldViewProject : public ShaderCBuffer
 {
 public:
 	struct WorldViewProjectData
@@ -40,7 +43,7 @@ public:
 		D3DXMATRIX view;
 		D3DXMATRIX project;
 	};
-private:
+public:
 		WorldViewProject();
 		~WorldViewProject();
 
@@ -48,6 +51,4 @@ public:
 	virtual int size();
 
 	virtual bool InitBuffer(void** buffer);
-private:
-	static WorldViewProject instance;
 };

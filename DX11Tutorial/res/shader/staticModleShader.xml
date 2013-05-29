@@ -1,8 +1,7 @@
 <Shader>
 	<PSShader>
 		<ShaderCode>
-		<![CDATA[
-/*
+			<![CDATA[/*
 * File color.ps for sample bufferandshader;
 */
 
@@ -14,19 +13,26 @@ struct PixelInputType
 };
 
 
-float4 ColorPixelShader(PixelInputType input) : SV_TARGET
+float4 main(PixelInputType input) : SV_TARGET
 {
     return input.color;
 }
 ]]>
-</ShaderCode>
+		</ShaderCode>
 	</PSShader>
 	<VSShader>
+		
 		<CBuffer>
 			WorldViewProject
 		</CBuffer>
-	<ShaderCode>
-		<![CDATA[/*
+		
+		<InputType>
+			<Element name="POSITION" value="FLOAT3"/>
+			<Element name="COLOR" value="FLOAT4"/>
+		</InputType>
+		<ShaderCode>
+			<![CDATA[
+/*
 * File color.vs for sample bufferandshader;
 */
 
@@ -51,7 +57,7 @@ struct PixelInputType
     float4 color : COLOR;
 };
 
-PixelInputType ColorVertexShader(VertexInputType input)
+PixelInputType main(VertexInputType input)
 {
 	PixelInputType output;
 	
@@ -68,6 +74,6 @@ PixelInputType ColorVertexShader(VertexInputType input)
 	
 	return output;
 }]]>
-	</ShaderCode>
+		</ShaderCode>
 	</VSShader>
 </Shader>
