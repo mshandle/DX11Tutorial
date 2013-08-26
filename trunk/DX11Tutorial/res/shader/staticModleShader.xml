@@ -1,10 +1,25 @@
 <Shader>
 	<PSShader>
+		<CBuffer>
+			LightData
+		</CBuffer>
+		<SamplerState>
+			
+		</SamplerState>
+		<Texture>
+			diffuse
+		</Texture>
 		<ShaderCode>
-			<![CDATA[/*
+			<![CDATA[
+/*
 * File color.ps for sample bufferandshader;
 */
 
+cbuffer LightData
+{
+	float4 lightColor;
+	float4 lightpostion;
+};
 
 struct PixelInputType
 {
@@ -12,10 +27,18 @@ struct PixelInputType
     float4 color : COLOR;
 };
 
+Texture2D shaderTexture;
+SamplerState SampleType;
 
 float4 main(PixelInputType input) : SV_TARGET
 {
-    return input.color;
+	  float3 L = lightpostion.xyz - input.position.xyz;
+	  L = normalize(L);
+	  float3 N = float3(0.0,0.0,1.0);
+	  float det = max(dot(L,N),0);
+	  
+	  float4 textureColor = shaderTexture.Sample(SampleType, input.color.xy);;
+    return (textureColor + lightColor*det );
 }
 ]]>
 		</ShaderCode>
@@ -42,6 +65,12 @@ cbuffer MatrixBuffer
 	matrix viewMatrix;
 	matrix projectionMatrix;
 };
+
+cbuffer LightConst
+{
+	float4 LightColor;
+};
+
 
 //Input Type and OutPutType
 
