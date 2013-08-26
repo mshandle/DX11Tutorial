@@ -12,9 +12,9 @@ ModleLoaderSample::~ModleLoaderSample(void)
 bool ModleLoaderSample::init()
 {
 
-	//bool result = ModleLoader::Instance().loaderModel(L"../res/modle/cube.obj",&m_vertexBuffer, &m_indexBuffer);
+	Model* pModel = ModleLoader::Instance().loaderModel(L"../res/modle/cube.obj",&m_vertexBuffer, &m_indexBuffer);
 	
-	return true;
+	return pModel == NULL;
 }
 
 void ModleLoaderSample::fini()

@@ -5,6 +5,7 @@
 #include <string>
 #include <D3DX10math.h>
 #include "framework/SystemClass.h"
+#include "../Base/VertexFormat.h"
 ModleLoader::ModleLoader(void)
 {
 }
@@ -19,7 +20,7 @@ ModleLoader& ModleLoader::Instance()
 	return instance;
 }
 
-bool ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3DIndexBuffer** ibuffer )
+Model* ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3DIndexBuffer** ibuffer )
 {
 	std::ifstream file(_modlefile);     //open the model file
 	if(!file.is_open())
@@ -27,13 +28,14 @@ bool ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3D
 		SystemClass::Instance().WarningDialog(_modlefile,L"No find File!");
 		return false;
 	}
-	std::vector<D3DXVECTOR3*> vPosition;
-	std::vector<D3DXVECTOR3*> vNormal;
-	std::vector<D3DXVECTOR2*> vVU;
+	std::vector<D3DXVECTOR3> vPosition;
+	std::vector<D3DXVECTOR3> vNormal;
+	std::vector<D3DXVECTOR2> vVU;
+	std::vector<FaceType>    vIndex;
 	//std::vector<D3DXVECTOR3>
 	char buf[256];  //temp buffer for each line
-	std::vector<std::string*> coord;
-	
+	std::vector<std::string> coord;
+
 	int verNum = 0;
 	int IndNum = 0;
 	int faceNum = 0;
@@ -41,12 +43,14 @@ bool ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3D
 	while(!file.eof())
 	{
 		file.getline(buf,256);    //while we are not in the end of the file, read everything as a string to the coord vector
-		coord.push_back(new std::string(buf));
+		coord.push_back(std::string(buf));
 	}
 	
 	for(unsigned int lineIndex = 0; lineIndex < coord.size(); lineIndex++) //and then go through all line and decide what kind of line it is
 	{
-		std::string line = *coord[lineIndex];
+		std::string line = coord[lineIndex];
+		
+		if(line.empty()) continue;
 
 		if(line[0] == '#')
 			continue; // this is # continue
@@ -54,23 +58,81 @@ bool ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3D
 		{
 			float tmpx,tmpy,tmpz;
 			sscanf(line.c_str(),"v %f %f %f",&tmpx,&tmpy,&tmpz);       //read the 3 floats, which makes up the vertex
-			//vertex.push_back(new coordinate(tmpx,tmpy,tmpz));
+			vPosition.push_back(D3DXVECTOR3(tmpx, tmpy, tmpz * -1.0f));//translate left hand to right hand
+			verNum++;
 		}
 
 		else if(line[0] == 'v' && line[1] == 't')//vt is texturecood
 		{
-
+			float fTmpU,fTmpV;
+			sscanf(line.c_str(),"vt %f %f",&fTmpU,&fTmpV);
+			vVU.push_back(D3DXVECTOR2(fTmpU,1.0f - fTmpV));//translate left hand to right hand
 		}
 		else if(line[0] =='v' && line[1] == 'n')//vn normal
 		{
-
+			float fTmpX,fTmpY,fTmpZ;
+			sscanf(line.c_str(),"vn %f %f %f",&fTmpX,&fTmpY, &fTmpZ);
+			vNormal.push_back(D3DXVECTOR3(fTmpX, fTmpY,fTmpZ * -1.0f));//translate left hand to right hand
 		}
 		else if(line[0] == 'f')
 		{
-
+			//f 1/1/1 2/2/2 3/3/3
+			FaceType value_;
+			sscanf(line.c_str(),"f %d/%d/%d %d/%d/%d %d/%d/%d", &value_.vIndex1,&value_.tIndex1,&value_.nIndex1, &value_.vIndex2, &value_.tIndex2,&value_.nIndex2, &value_.vIndex3, &value_.tIndex3,&value_.nIndex3);
+			//sscanf(line.c_str(),"f %d/%d/%d",&value_.nIndex1);
+			vIndex.push_back(value_);
 		}
 
 	}
-	return true;
+
+	XYZNUV* pVertBuff = new XYZNUV[vIndex.size() * 3];
+	unsigned long* indices = new unsigned long[vIndex.size() * 3];
+
+	for(unsigned int nIndex= 0; nIndex < vIndex.size(); nIndex++)
+	{
+		int VerBufferIndex = nIndex * 3;
+		pVertBuff[VerBufferIndex].position = vPosition[vIndex[nIndex].vIndex1 -1];
+		pVertBuff[VerBufferIndex].normal = vNormal[vIndex[nIndex].nIndex1-1];
+		pVertBuff[VerBufferIndex].uv = vVU[vIndex[nIndex].tIndex1-1];
+
+		pVertBuff[VerBufferIndex+1].position = vPosition[vIndex[nIndex].vIndex2 -1];
+		pVertBuff[VerBufferIndex+1].normal = vNormal[vIndex[nIndex].nIndex2 - 1];
+		pVertBuff[VerBufferIndex+1].uv = vVU[vIndex[nIndex].tIndex2-1];
+
+		pVertBuff[VerBufferIndex+2].position = vPosition[vIndex[nIndex].vIndex3-1];
+		pVertBuff[VerBufferIndex+2].normal = vNormal[vIndex[nIndex].nIndex3-1];
+		pVertBuff[VerBufferIndex+2].uv = vVU[vIndex[nIndex].tIndex3-1];
+
+	}
+
+	for(unsigned int nIndex = 0; nIndex < vIndex.size() * 3; nIndex++)
+	{
+		indices[nIndex] = nIndex;
+	}
+	bool result = true;
+	D3DVertexBuffer* m_vertexBuffer = new D3DVertexBuffer();
+	if(m_vertexBuffer)
+	{
+		result =m_vertexBuffer->init(sizeof(XYZRGBA) * (vIndex.size() * 3), (void*)pVertBuff);
+		SAFE_DELETE(pVertBuff);
+	}
+
+	D3DIndexBuffer* m_indexBuffer = new D3DIndexBuffer();
+	if(m_indexBuffer)
+	{
+		result = m_indexBuffer->init(sizeof(unsigned long) * (vIndex.size() * 3), (void*)indices);
+		SAFE_DELETE(indices);
+	}
+
+	
+	if(result)
+	{
+		Model* pModle = new Model(m_vertexBuffer, m_indexBuffer);
+		return pModle;
+	}
+	else
+	{
+		return NULL;
+	}
 
 }

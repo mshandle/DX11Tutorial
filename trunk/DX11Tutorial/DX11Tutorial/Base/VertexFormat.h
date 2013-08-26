@@ -15,4 +15,10 @@ struct XYZUV
 	D3DXVECTOR2 uv;
 };
 
+struct XYZNUV
+{
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 normal;
+	D3DXVECTOR2 uv;
+};
 #endif//VERTEXFORMAT_H_

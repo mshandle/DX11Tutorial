@@ -46,6 +46,9 @@
     <Filter Include="ResMrg">
       <UniqueIdentifier>{8a5c8164-0ca8-4bd2-bff5-0f71275cfe0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\Model">
+      <UniqueIdentifier>{018587bb-7a24-4c3a-b73b-033fc8a6342b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camare\ClientCamera.cpp">
@@ -119,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="win\main.cpp">
       <Filter>Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Model\model.cpp">
+      <Filter>Render\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Sample\XMLTestSample.h">
       <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Model\model.h">
+      <Filter>Render\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

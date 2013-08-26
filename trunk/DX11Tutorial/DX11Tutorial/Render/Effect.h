@@ -2,6 +2,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <map>
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <d3dx11async.h>
@@ -15,6 +16,8 @@ public:
 
 		DXGI_FORMAT value;
 	};
+
+	typedef std::map<std::string, ID3D11ShaderResourceView*> TEXTURECONTAIN;
 public:
 	Effect(void);
 	~Effect(void);
@@ -23,6 +26,9 @@ public:
 	bool load(const char* filename);
 	
 	bool commit();
+
+	bool setTexture(std::string key_, ID3D11ShaderResourceView* text_);
+
 	static DXGI_FORMAT InputValue2DxValue(const char* value);
 
 	std::vector<std::string>& CbuferMap();
@@ -40,4 +46,6 @@ private:
 	ID3D11InputLayout* m_layout;
 	std::vector<ID3D11Buffer*> m_vscbufer;
 	std::vector<ID3D11Buffer*> m_pscbufer;
+
+	std::map<std::string, ID3D11ShaderResourceView*> m_VTexture;
 };
