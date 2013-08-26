@@ -51,7 +51,7 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\evad11engine\DX11Tutorial\DX11Tutorial;$(IncludePath)</IncludePath>
     <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ReferencePath)</ReferencePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\evad11engine\DX11Tutorial\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,6 +108,7 @@
     <ClCompile Include="Render\D3DVertexBuffer.cpp" />
     <ClCompile Include="Render\Effect.cpp" />
     <ClCompile Include="Render\GraphicsClass.cpp" />
+    <ClCompile Include="Render\Model\model.cpp" />
     <ClCompile Include="Render\ShaderCBuffer.cpp" />
     <ClCompile Include="Render\Texture.cpp" />
     <ClCompile Include="Render\Texture2D.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Render\D3DVertexBuffer.h" />
     <ClInclude Include="Render\Effect.h" />
     <ClInclude Include="Render\GraphicsClass.h" />
+    <ClInclude Include="Render\Model\model.h" />
     <ClInclude Include="Render\ShaderCBuffer.h" />
     <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Render\Texture2D.h" />

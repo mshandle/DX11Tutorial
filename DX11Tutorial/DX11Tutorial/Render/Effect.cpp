@@ -99,8 +99,19 @@ bool Effect::load( const char* filename )
 		}
 		
 	} while (pscbuffercode);
+	//texture
+	TiXmlNode* psTexturecode = psNode->IterateChildren("Texture", NULL);
+	do 
+	{
+		if(psTexturecode)
+		{
+			std::string tmp = psTexturecode->IterateChildren(NULL)->Value();
 
+			m_VTexture[tmp] = NULL;
+			psTexturecode = psNode->IterateChildren("Texture", psTexturecode);
+		}
 
+	} while (pscbuffercode);
 
 
 	//complier shader
@@ -295,6 +306,22 @@ bool Effect::commit()
 	// Set the vertex and pixel shaders that will be used to render this triangle.
 	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
 	deviceContext->PSSetShader(m_pixelShader, NULL, 0);
+
+	int nSlot = 0;
+	for(TEXTURECONTAIN::iterator it = m_VTexture.begin(); it!= m_VTexture.end(); it++)
+	{
+		ID3D11ShaderResourceView* pResourceView = it->second;
+		deviceContext->PSSetShaderResources(nSlot,1, &pResourceView);
+		nSlot++;
+	}
+	if(m_VTexture.size() != 0)
+	{
+		ID3D11SamplerState* pSampleState = 	SystemClass::Instance().renderModul()->GetDefaultSampleState();
+		if(pSampleState != NULL)
+		{
+			deviceContext->PSSetSamplers(0,1,&pSampleState);
+		}
+	}
 	return !FAILED(result);
 }
 
@@ -355,4 +382,13 @@ void Effect::OutErrorMsg( ID3D10Blob*  errorMessage, WCHAR* filename)
 	
 
 	SystemClass::Instance().WarningDialog(filename, L"Error compiling shader.  Check shader-error.txt for message.");
+}
+
+bool Effect::setTexture( std::string key_, ID3D11ShaderResourceView* text_ )
+{
+	TEXTURECONTAIN::iterator it = m_VTexture.find(key_);
+	if(it == m_VTexture.end()) return false;
+
+	m_VTexture[key_] = text_;
+	return true;
 }
