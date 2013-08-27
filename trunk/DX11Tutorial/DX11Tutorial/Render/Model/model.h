@@ -20,7 +20,7 @@ public:
 	
 	Model() {};
 	
-	Model(D3DVertexBuffer* pVertBuffer, D3DIndexBuffer* pIndexBuffer);
+	Model(D3DVertexBuffer* pVertBuffer, D3DIndexBuffer* pIndexBuffer, int ntris);
 
 	virtual ~Model(){};
 
@@ -30,12 +30,14 @@ public:
 
 	D3DVertexBuffer*	VertBuffer();
 
+	unsigned int		TrisNum();
 public:
 
 	D3DVertexBuffer*	m_pVertBuffer;
 
 	D3DIndexBuffer*		m_pIndexBuffer;
 
+	unsigned int		m_untris;
 };
 
 #endif//MODLE_H_

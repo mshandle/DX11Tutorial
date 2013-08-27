@@ -66,7 +66,7 @@ bool TextureSample::init()
 	m_vertexBuffer = new D3DVertexBuffer();
 	if(m_vertexBuffer)
 	{
-		result =m_vertexBuffer->init(sizeof(XYZUV) * m_vertexCount, (void*)vertices);
+		result =m_vertexBuffer->init(sizeof(XYZUV) * m_vertexCount, (void*)vertices, sizeof(XYZUV));
 		SAFE_DELETE(vertices);
 	}
 

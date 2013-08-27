@@ -11,12 +11,17 @@ public:
 public:
 	ID3D11Buffer* buffer() ;
 
-	bool init(unsigned int memsize, void* memory);
+	bool init(unsigned int memsize, void* memory, unsigned int stride_);
 	
+
+	unsigned int stride();
+
 private:
 	void fini();
 private:
 	ID3D11Buffer* m_buffer; 
+
+	unsigned int m_ustride;
 
 	unsigned int m_memsize;
 };

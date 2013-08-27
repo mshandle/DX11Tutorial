@@ -66,7 +66,7 @@ bool BufferAndShaderSample::init()
 	m_vertexBuffer = new D3DVertexBuffer();
 	if(m_vertexBuffer)
 	{
-		result =m_vertexBuffer->init(sizeof(XYZRGBA) * m_vertexCount, (void*)vertices);
+		result =m_vertexBuffer->init(sizeof(XYZRGBA) * m_vertexCount, (void*)vertices, sizeof(XYZRGBA));
 		SAFE_DELETE(vertices);
 	}
 	

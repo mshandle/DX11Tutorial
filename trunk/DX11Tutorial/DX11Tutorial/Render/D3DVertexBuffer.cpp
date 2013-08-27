@@ -19,7 +19,7 @@ ID3D11Buffer* D3DVertexBuffer::buffer()
 	return m_buffer;
 }
 
-bool D3DVertexBuffer::init( unsigned int memsize, void* memory )
+bool D3DVertexBuffer::init( unsigned int memsize, void* memory , unsigned int stride_)
 {
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData;
@@ -41,6 +41,8 @@ bool D3DVertexBuffer::init( unsigned int memsize, void* memory )
 		return false;
 	}
 	m_memsize = memsize;
+	m_ustride = stride_;
+
 	return true;
 }
 
@@ -48,5 +50,11 @@ void D3DVertexBuffer::fini()
 {
 	SAFE_RELEASE(m_buffer);
 	m_memsize = 0;
+	m_ustride = 0;
 
+}
+
+unsigned int D3DVertexBuffer::stride()
+{
+	return m_ustride;
 }

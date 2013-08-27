@@ -20,7 +20,7 @@ ModleLoader& ModleLoader::Instance()
 	return instance;
 }
 
-Model* ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3DIndexBuffer** ibuffer )
+Model* ModleLoader::loaderModel( WCHAR* _modlefile)
 {
 	std::ifstream file(_modlefile);     //open the model file
 	if(!file.is_open())
@@ -78,7 +78,7 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D
 		{
 			//f 1/1/1 2/2/2 3/3/3
 			FaceType value_;
-			sscanf(line.c_str(),"f %d/%d/%d %d/%d/%d %d/%d/%d", &value_.vIndex1,&value_.tIndex1,&value_.nIndex1, &value_.vIndex2, &value_.tIndex2,&value_.nIndex2, &value_.vIndex3, &value_.tIndex3,&value_.nIndex3);
+			sscanf(line.c_str(),"f %d/%d %d/%d %d/%d", &value_.vIndex1,&value_.tIndex1, &value_.vIndex2, &value_.tIndex2, &value_.vIndex3, &value_.tIndex3);
 			//sscanf(line.c_str(),"f %d/%d/%d",&value_.nIndex1);
 			vIndex.push_back(value_);
 		}
@@ -91,17 +91,85 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D
 	for(unsigned int nIndex= 0; nIndex < vIndex.size(); nIndex++)
 	{
 		int VerBufferIndex = nIndex * 3;
-		pVertBuff[VerBufferIndex].position = vPosition[vIndex[nIndex].vIndex1 -1];
-		pVertBuff[VerBufferIndex].normal = vNormal[vIndex[nIndex].nIndex1-1];
-		pVertBuff[VerBufferIndex].uv = vVU[vIndex[nIndex].tIndex1-1];
+		/****************************************************/
+		int VPostionIndex = vIndex[nIndex].vIndex1 -1;
+		if(VPostionIndex >= vPosition.size())
+		{
+			pVertBuff[VerBufferIndex].position = vPosition[VPostionIndex - 1];
+		}
+		else
+		{
+			pVertBuff[VerBufferIndex].position = vPosition[VPostionIndex];
+		}
+		
+		if(vIndex[nIndex].nIndex1!= -1)
+		{
+			pVertBuff[VerBufferIndex].normal = vNormal[vIndex[nIndex].nIndex1 - 1];
+		}
+		int vtexIndex = vIndex[nIndex].tIndex1-1;
+		if(VPostionIndex >= vVU.size())
+		{
+			pVertBuff[VerBufferIndex].uv = vVU[vtexIndex - 1];
+		}
+		else
+		{
+			pVertBuff[VerBufferIndex].uv = vVU[vtexIndex];
+		}
+		/****************************************************/
 
-		pVertBuff[VerBufferIndex+1].position = vPosition[vIndex[nIndex].vIndex2 -1];
-		pVertBuff[VerBufferIndex+1].normal = vNormal[vIndex[nIndex].nIndex2 - 1];
-		pVertBuff[VerBufferIndex+1].uv = vVU[vIndex[nIndex].tIndex2-1];
+		VPostionIndex = vIndex[nIndex].vIndex2 -1;
+		if(VPostionIndex >= vPosition.size())
+		{
+			pVertBuff[VerBufferIndex +1].position = vPosition[VPostionIndex - 1];
+		}
+		else
+		{
+			pVertBuff[VerBufferIndex + 1].position = vPosition[VPostionIndex];
+		}
 
-		pVertBuff[VerBufferIndex+2].position = vPosition[vIndex[nIndex].vIndex3-1];
-		pVertBuff[VerBufferIndex+2].normal = vNormal[vIndex[nIndex].nIndex3-1];
-		pVertBuff[VerBufferIndex+2].uv = vVU[vIndex[nIndex].tIndex3-1];
+		if(vIndex[nIndex].nIndex2!= -1)
+		{
+			pVertBuff[VerBufferIndex].normal = vNormal[vIndex[nIndex].nIndex2 - 1];
+		}
+
+		vtexIndex = vIndex[nIndex].tIndex2-1;
+		if(VPostionIndex >= vVU.size())
+		{
+			pVertBuff[VerBufferIndex+1].uv = vVU[vtexIndex - 1];
+		}
+		else
+		{
+			pVertBuff[VerBufferIndex+1].uv = vVU[vtexIndex];
+
+		}
+	
+		/****************************************************/
+
+		VPostionIndex = vIndex[nIndex].vIndex3 -1;
+		if(VPostionIndex >= vPosition.size())
+		{
+			pVertBuff[VerBufferIndex +2].position = vPosition[VPostionIndex - 1];
+		}
+		else
+		{
+			pVertBuff[VerBufferIndex + 2].position = vPosition[VPostionIndex];
+		}
+
+		if(vIndex[nIndex].nIndex3!= -1)
+		{
+			pVertBuff[VerBufferIndex].normal = vNormal[vIndex[nIndex].nIndex3 - 1];
+		}
+
+		vtexIndex = vIndex[nIndex].tIndex3-1;
+		if(VPostionIndex >= vVU.size())
+		{
+			pVertBuff[VerBufferIndex+2].uv = vVU[vtexIndex - 1];
+		}
+		else
+		{
+			pVertBuff[VerBufferIndex+2].uv = vVU[vtexIndex];
+
+		}
 
 	}
 
@@ -113,7 +181,7 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D
 	D3DVertexBuffer* m_vertexBuffer = new D3DVertexBuffer();
 	if(m_vertexBuffer)
 	{
-		result =m_vertexBuffer->init(sizeof(XYZRGBA) * (vIndex.size() * 3), (void*)pVertBuff);
+		result =m_vertexBuffer->init(sizeof(XYZNUV) * (vIndex.size() * 3), (void*)pVertBuff,sizeof(XYZNUV));
 		SAFE_DELETE(pVertBuff);
 	}
 
@@ -127,7 +195,7 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D
 	
 	if(result)
 	{
-		Model* pModle = new Model(m_vertexBuffer, m_indexBuffer);
+		Model* pModle = new Model(m_vertexBuffer, m_indexBuffer, vIndex.size());
 		return pModle;
 	}
 	else

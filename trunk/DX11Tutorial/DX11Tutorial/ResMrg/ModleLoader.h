@@ -27,5 +27,5 @@ public:
 public:
 	static ModleLoader& Instance();
 
-	Model* loaderModel(WCHAR* _modlefile, D3DVertexBuffer** vbuffer, D3DIndexBuffer** ibuffer);
+	Model* loaderModel(WCHAR* _modlefile);
 };
