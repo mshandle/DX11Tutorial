@@ -16,7 +16,7 @@ Sample_Task::~Sample_Task(void)
 
 bool Sample_Task::init()
 {
-	m_psample = new XMLTestSample();
+	m_psample = new ModleLoaderSample();
 	if(NULL != m_psample)
 		return m_psample->init();
 	return false;

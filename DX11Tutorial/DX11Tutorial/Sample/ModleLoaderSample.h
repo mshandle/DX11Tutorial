@@ -2,6 +2,9 @@
 #include "sampleinterface.h"
 #include "render/D3DVertexBuffer.h"
 #include "render/D3DIndexBuffer.h"
+#include "../Render/Effect.h"
+#include "../Render/Texture.h"
+#include "../Render/Model/model.h"
 
 class ModleLoaderSample :
 	public BaseSample
@@ -17,8 +20,12 @@ public:
 	virtual void update(float det);
 
 	virtual bool render();
+
 private:
-private:
-	D3DVertexBuffer* m_vertexBuffer;
-	D3DIndexBuffer* m_indexBuffer;
+	
+	Model* m_pModel;
+
+	Effect* m_peffect;
+
+	Texture* m_pTexturel;
 };

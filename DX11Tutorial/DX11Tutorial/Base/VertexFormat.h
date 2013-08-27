@@ -9,6 +9,12 @@ struct XYZRGBA
 	D3DXVECTOR4 color;
 };
 
+struct XYZN
+{
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 normal;
+};
+
 struct XYZUV
 {
 	D3DXVECTOR3 position;
@@ -17,6 +23,12 @@ struct XYZUV
 
 struct XYZNUV
 {
+	XYZNUV()
+	{
+		position = D3DXVECTOR3(0.0f,0.0f,0.0f);
+		normal = D3DXVECTOR3(0.0f,0.0f,0.0f);
+		uv = D3DXVECTOR2(0.0f,0.0f);
+	}
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 normal;
 	D3DXVECTOR2 uv;

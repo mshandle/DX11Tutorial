@@ -468,7 +468,7 @@ D3DXMATRIX D3DClass::GetProjectionMatrix()
 }
 
 
-D3DXMATRIX D3DClass::GetWorldMatrix()
+D3DXMATRIX& D3DClass::GetWorldMatrix()
 {
 	return m_worldMatrix;
 }

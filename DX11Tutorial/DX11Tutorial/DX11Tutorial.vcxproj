@@ -152,8 +152,10 @@
   <ItemGroup>
     <None Include="..\res\shader\color.ps" />
     <None Include="..\res\shader\color.vs" />
+    <None Include="..\res\shader\staticModleShader.xml" />
     <None Include="..\res\shader\texture.ps" />
     <None Include="..\res\shader\texture.vs" />
+    <None Include="test.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

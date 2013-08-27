@@ -223,5 +223,11 @@
     <None Include="..\res\shader\texture.vs">
       <Filter>Sample\SampleRes</Filter>
     </None>
+    <None Include="..\res\shader\staticModleShader.xml">
+      <Filter>Sample\SampleRes</Filter>
+    </None>
+    <None Include="test.hlsl">
+      <Filter>Sample\SampleRes</Filter>
+    </None>
   </ItemGroup>
 </Project>

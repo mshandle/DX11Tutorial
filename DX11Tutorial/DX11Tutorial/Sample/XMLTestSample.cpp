@@ -17,7 +17,7 @@ XMLTestSample::~XMLTestSample(void)
 bool XMLTestSample::init()
 {
 	
-	XYZRGBA* vertices = NULL;
+	XYZNUV* vertices = NULL;
 	unsigned long* indices = NULL;
 	bool result = true;
 
@@ -28,7 +28,7 @@ bool XMLTestSample::init()
 	m_indexCount = 6;
 
 	// Create the vertex array.
-	vertices = new XYZRGBA[m_vertexCount];
+	vertices = new XYZNUV[m_vertexCount];
 	if(!vertices)
 	{
 		return false;
@@ -43,16 +43,22 @@ bool XMLTestSample::init()
 
 	// Load the vertex array with data.
 	vertices[0].position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);  // Bottom left.
-	vertices[0].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[0].normal = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+	vertices[0].uv = D3DXVECTOR2(1.0f,0.0);
 
 	vertices[1].position = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);  // Top left.
-	vertices[1].color = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f);
+	vertices[1].normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	vertices[1].uv = D3DXVECTOR2(0.0f,0.0);
+
 
 	vertices[2].position = D3DXVECTOR3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	vertices[2].color = D3DXVECTOR4(1.0f, 0.0f, 1.0f, 1.0f);
+	vertices[2].normal = D3DXVECTOR3(1.0f, 0.0f, 1.0f);
+	vertices[2].uv = D3DXVECTOR2(1.0f,0.0);
+
 
 	vertices[3].position = D3DXVECTOR3(1.0f, 1.0f, 0.0f);//top l
-	vertices[3].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 0.0);
+	vertices[3].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	vertices[3].uv = D3DXVECTOR2(0.0f,1.0);
 	// Load the index array with data.
 	indices[0] = 0;  // Bottom left.
 	indices[1] = 1;  // Top middle.
@@ -64,7 +70,7 @@ bool XMLTestSample::init()
 	m_vertexBuffer = new D3DVertexBuffer();
 	if(m_vertexBuffer)
 	{
-		result =m_vertexBuffer->init(sizeof(XYZRGBA) * m_vertexCount, (void*)vertices);
+		result =m_vertexBuffer->init(sizeof(XYZNUV) * m_vertexCount, (void*)vertices, sizeof(XYZNUV));
 		SAFE_DELETE(vertices);
 	}
 
@@ -83,6 +89,7 @@ bool XMLTestSample::init()
 	{
 		result = m_ptexture->init(L"../res/texture/db_doty_shatu003.dds");
 	}
+	
 
 	ClientCamera::instance().SetPosition(0.0f, 0.0f, -2.0f);
 	return result;
@@ -103,15 +110,15 @@ void XMLTestSample::update( float det )
 bool XMLTestSample::render()
 {
 
-	unsigned int stride;
+	
 	unsigned int offset;
 	// Set vertex buffer stride and offset.
-	stride = sizeof(XYZRGBA); 
 	offset = 0;
 	ID3D11DeviceContext*  deviceContext = SystemClass::Instance().renderModul()->GetDeviceContext();
 	// Set the vertex buffer to active in the input assembler so it can be rendered.
 	ID3D11Buffer* vertexbuffer = m_vertexBuffer->buffer();
-	deviceContext->IASetVertexBuffers(0, 1, &vertexbuffer, &stride, &offset);
+	unsigned int stride_ = m_vertexBuffer->stride();
+	deviceContext->IASetVertexBuffers(0, 1, &vertexbuffer, &stride_, &offset);
 
 	// Set the index buffer to active in the input assembler so it can be rendered.
 	deviceContext->IASetIndexBuffer(m_indexBuffer->buffer(), DXGI_FORMAT_R32_UINT, 0);
@@ -120,6 +127,8 @@ bool XMLTestSample::render()
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	bool  result = effect->commit();
+	effect->setTexture("diffuse", m_ptexture->getTexture());
+
 
 	deviceContext->DrawIndexed(m_indexCount, 0, 0);
 

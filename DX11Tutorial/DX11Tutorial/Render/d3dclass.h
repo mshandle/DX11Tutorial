@@ -43,7 +43,7 @@ public:
 	ID3D11DeviceContext* GetDeviceContext();
 
 	D3DXMATRIX GetProjectionMatrix();
-	D3DXMATRIX GetWorldMatrix();
+	D3DXMATRIX& GetWorldMatrix();
 	D3DXMATRIX GetOrthoMatrix();
 
 	void GetVideoCardInfo(char*, int&);
