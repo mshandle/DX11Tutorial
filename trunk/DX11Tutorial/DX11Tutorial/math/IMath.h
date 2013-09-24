@@ -1,10 +1,12 @@
-/*!
- * \file IMath.h
- * \date 7-25-2011 12:46:46
- * 
- * 
- * \author zjhlogo (zjhlogo@gmail.com)
- */
+/********************************************************************
+	created:	2013/09/24
+	filename: 	D:\evad11engine\DX11Tutorial\DX11Tutorial\math\IMath.h
+	file ext:	h
+	author:		wubaoqing
+	
+	purpose:	
+*********************************************************************/
+
 #ifndef __IMATH_H__
 #define __IMATH_H__
 

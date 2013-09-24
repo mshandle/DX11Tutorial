@@ -1,10 +1,12 @@
-/*!
- * \file IMath.cpp
- * \date 7-25-2011 12:46:55
- * 
- * 
- * \author zjhlogo (zjhlogo@gmail.com)
- */
+/********************************************************************
+	created:	2013/09/24
+	filename: 	D:\evad11engine\DX11Tutorial\DX11Tutorial\math\IMath.cpp
+	file ext:	cpp
+	author:		wubaoqing
+	
+	purpose:	
+*********************************************************************/
+
 #include <math/IMath.h>
 #include <math.h>
 #include <stdlib.h>
