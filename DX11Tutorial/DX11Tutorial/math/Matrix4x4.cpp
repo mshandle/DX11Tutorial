@@ -50,67 +50,67 @@ Matrix4x4& Matrix4x4::operator=(const Matrix4x4& m)
 Vector3 Matrix4x4::GetTranslate()
 {
 	//
-	// [ N/E  N/E  N/E   x  ]
-	// [ N/E  N/E  N/E   y  ]
-	// [ N/E  N/E  N/E   z  ]
-	// [ N/E  N/E  N/E  N/E ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ X	   Y    Z    N/E  ]
 	//
-	return Vector3(e[E14], e[E24], e[E34]);
+	return Vector3(e[E41], e[E42], e[E43]);
 }
 
 Matrix4x4& Matrix4x4::SetTranslate(const Vector3& v)
 {
 	//
-	// [ N/E  N/E  N/E   x  ]
-	// [ N/E  N/E  N/E   y  ]
-	// [ N/E  N/E  N/E   z  ]
-	// [ N/E  N/E  N/E  N/E ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ X	   Y    Z    N/E  ]
 	//
-	e[E14] = v.x;
-	e[E24] = v.y;
-	e[E34] = v.z;
+	e[E41] = v.x;
+	e[E42] = v.y;
+	e[E43] = v.z;
 	return (*this);
 }
 
 Matrix4x4& Matrix4x4::SetTranslate(float x, float y, float z)
 {
 	//
-	// [ N/E  N/E  N/E   x  ]
-	// [ N/E  N/E  N/E   y  ]
-	// [ N/E  N/E  N/E   z  ]
-	// [ N/E  N/E  N/E  N/E ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ +X	   +Y   +Z    N/E  ]
 	//
-	e[E14] = x;
-	e[E24] = y;
-	e[E34] = z;
+	e[E41] = x;
+	e[E42] = y;
+	e[E43] = z;
 	return (*this);
 }
 
 Matrix4x4& Matrix4x4::Translate(const Vector3& v)
 {
 	//
-	// [ N/E  N/E  N/E  +x  ]
-	// [ N/E  N/E  N/E  +y  ]
-	// [ N/E  N/E  N/E  +z  ]
-	// [ N/E  N/E  N/E  N/E ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ +X	   +Y   +Z    N/E  ]
 	//
-	e[E14] += v.x;
-	e[E24] += v.y;
-	e[E34] += v.z;
+	e[E41] += v.x;
+	e[E42] += v.y;
+	e[E43] += v.z;
 	return (*this);
 }
 
 Matrix4x4& Matrix4x4::Translate(float x, float y, float z)
 {
 	//
-	// [ N/E  N/E  N/E  +x  ]
-	// [ N/E  N/E  N/E  +y  ]
-	// [ N/E  N/E  N/E  +z  ]
-	// [ N/E  N/E  N/E  N/E ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ N/E  N/E  N/E   N/E  ]
+	// [ +X	   +Y   +Z    N/E  ]
 	//
-	e[E14] += x;
-	e[E24] += y;
-	e[E34] += z;
+	e[E41] += x;
+	e[E42] += y;
+	e[E43] += z;
 	return (*this);
 }
 
