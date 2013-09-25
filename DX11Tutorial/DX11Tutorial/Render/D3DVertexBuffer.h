@@ -11,7 +11,7 @@ public:
 public:
 	ID3D11Buffer* buffer() ;
 
-	bool init(unsigned int memsize, void* memory, unsigned int stride_);
+	bool init(unsigned int memsize, void* memory, unsigned int stride_, D3D11_USAGE flag = D3D11_USAGE_DEFAULT);
 	
 
 	unsigned int stride();

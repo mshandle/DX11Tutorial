@@ -1,6 +1,8 @@
 #include "ShaderCBuffer.h"
 #include "framework/SystemClass.h"
 #include "Camare/ClientCamera.h"
+#include "../math/Matrix4x4.h"
+#include "../math/IMath.h"
 
 CBufferManager::CBufferManager()
 {
@@ -35,6 +37,7 @@ void CBufferManager::InitConstanceMap()
 {
 	insert("WorldViewProject", new WorldViewProject());
 	insert("LightData", new Light());
+	insert("UIWorldViewProject", new UIWorldViewPorject());
 }
 
 int WorldViewProject::size()
@@ -45,14 +48,14 @@ int WorldViewProject::size()
 bool WorldViewProject::InitBuffer( void** buffer )
 {
 	WorldViewProjectData* data = (WorldViewProjectData*)(*buffer);
-	D3DXMATRIX world = SystemClass::Instance().renderModul()->GetWorldMatrix();
-	D3DXMATRIX view =  ClientCamera::instance().GetViewMatrix();
-	D3DXMATRIX project = SystemClass::Instance().renderModul()->GetProjectionMatrix();
+	Matrix4x4 world = SystemClass::Instance().renderModul()->GetWorldMatrix();
+	Matrix4x4 view =  ClientCamera::instance().GetViewMatrix();
+	//Matrix4x4 project = SystemClass::Instance().renderModul()->GetOrthoMatrix();
+	Matrix4x4 project = SystemClass::Instance().renderModul()->GetProjectionMatrix();
 
-	// Transpose the matrices to prepare them for the shader.
-	D3DXMatrixTranspose(&world, &world);
-	D3DXMatrixTranspose(&view, &view);
-	D3DXMatrixTranspose(&project, &project);
+	world.Transport();
+	view.Transport();
+	project.Transport();
 
 	data->world = world;
 	data->view =view;
@@ -92,5 +95,28 @@ bool Light::InitBuffer( void** buffer )
 	data->lightPostion.z = 100;
 
 	data->lightPostion.w = 1;
+	return true;
+}
+
+int UIWorldViewPorject::size()
+{
+	return sizeof(UIWorldViewPorjectData);
+}
+
+bool UIWorldViewPorject::InitBuffer( void** buffer )
+{
+	UIWorldViewPorjectData* data = (UIWorldViewPorjectData*)(*buffer);
+	Matrix4x4 world =IMath::MAT4X4_IDENTITY;
+	Matrix4x4 view =  ClientCamera::instance().GetUIMatrix();
+	Matrix4x4 project = SystemClass::Instance().renderModul()->GetOrthoMatrix();
+	//Matrix4x4 project = SystemClass::Instance().renderModul()->GetProjectionMatrix();
+
+	world.Transport();
+	view.Transport();
+	project.Transport();
+
+	data->world = world;
+	data->view =view;
+	data->project = project;
 	return true;
 }

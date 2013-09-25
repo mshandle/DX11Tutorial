@@ -18,6 +18,14 @@
 #include "Matrix4x4.h"
 #include "Quaternion.h"
 
+#ifdef WIN32
+#include <dxgi.h>
+#include <d3dcommon.h>
+#include <d3d11.h>
+#include <D3DX10math.h>
+#endif
+
+
 class IMath
 {
 public:
@@ -54,13 +62,22 @@ public:
 	static void BuildRotateMatrixZ(Matrix3x3& matOut, float fRadian);
 	static void BuildRotateMatrixZ(Matrix4x4& matOut, float fRadian);
 
+	static void BuildYawPitchRoll(Matrix4x4& matOut, float yaw_, float pitch, float Roll);
 	static void BuildRotateMatrix(Matrix3x3& matOut, const Vector3& vx, const Vector3& vy, const Vector3& vz);
 	static void BuildRotateMatrix(Matrix4x4& matOut, const Vector3& vx, const Vector3& vy, const Vector3& vz);
 	static void BuildRotateMatrix(Matrix3x3& matOut, const Quaternion& q);
 	static void BuildRotateMatrix(Matrix4x4& matOut, const Quaternion& q);
 
-	static void BuildOrthoMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float near, float far);
-	static void BuildFrustumMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float near, float far);
+	static void BuildOrthoMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float near, float farplant);
+	static void BuildFrustumMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float near, float farplant);
+	static void BuildPerspectiveFovLHMatrix(Matrix4x4& matOutm, float fov_, float aspect, float near, float farplant);
+	static void BuildPersPectiveForRHMatrix(Matrix4x4& matOutm, float fov_, float aspect, float near, float farplant);
+#ifdef WIN32
+
+	static Matrix4x4 DXTOMATRIX4X4(D3DXMATRIX matrix);
+
+	static D3DXMATRIX MATRIX4X4TODX(Matrix4x4 matrix);
+#endif
 
 public:
 	static const float F_PI;

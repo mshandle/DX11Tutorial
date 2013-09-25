@@ -23,6 +23,8 @@ ClientCamera& ClientCamera::instance()
 
 bool ClientCamera::init()
 {
+
+	D3DXMatrixLookAtLH((D3DXMATRIX*)&m_UiViewMatirx,&D3DXVECTOR3(0.0f,0.0,-1.0),&D3DXVECTOR3(0.0,0.0,0.0), &D3DXVECTOR3(0.0,1.0,0.0));
 	return true;
 }
 
@@ -41,21 +43,21 @@ void ClientCamera::SetRotation( float yaw, float pitch, float raw )
 	m_rotationZ = raw;
 }
 
-D3DXVECTOR3 ClientCamera::GetPosition()
+Vector3 ClientCamera::GetPosition()
 {
-	return D3DXVECTOR3(m_positionX, m_positionY, m_positionZ);
+	return Vector3(m_positionX, m_positionY, m_positionZ);
 }
 
-D3DXVECTOR3 ClientCamera::GetRotation()
+Vector3 ClientCamera::GetRotation()
 {
-	return D3DXVECTOR3(m_rotationX, m_rotationY, m_rotationZ);
+	return Vector3(m_rotationX, m_rotationY, m_rotationZ);
 }
 
 void ClientCamera::update( float det )
 {
-	D3DXVECTOR3 up, position, lookAt;
+	Vector3 up, position, lookAt;
 	float yaw, pitch, roll;
-	D3DXMATRIX rotationMatrix;
+	Matrix4x4 rotationMatrix;
 
 
 	// Setup the vector that points upwards.
@@ -79,23 +81,32 @@ void ClientCamera::update( float det )
 	roll  = m_rotationZ * 0.0174532925f;
 
 	// Create the rotation matrix from the yaw, pitch, and roll values.
-	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, roll);
+
+
+	IMath::BuildYawPitchRoll(rotationMatrix, yaw, pitch, roll);
+
+
+	//IMath::BuildRotateMatrix()
 
 	// Transform the lookAt and up vector by the rotation matrix so the view is correctly rotated at the origin.
-	D3DXVec3TransformCoord(&lookAt, &lookAt, &rotationMatrix);
-	D3DXVec3TransformCoord(&up, &up, &rotationMatrix);
+	D3DXVec3TransformCoord((D3DXVECTOR3*)&lookAt, (D3DXVECTOR3*)&lookAt, (D3DXMATRIX*)&rotationMatrix);
+	D3DXVec3TransformCoord((D3DXVECTOR3*)&up, (D3DXVECTOR3*)&up, (D3DXMATRIX*)&rotationMatrix);
 
 	// Translate the rotated camera position to the location of the viewer.
 	lookAt = position + lookAt;
 
 	// Finally create the view matrix from the three updated vectors.
-	D3DXMatrixLookAtLH(&m_viewMatrix, &position, &lookAt, &up);
+	D3DXMatrixLookAtLH((D3DXMATRIX*)&m_viewMatrix, (D3DXVECTOR3*)&position,(D3DXVECTOR3*) &lookAt, (D3DXVECTOR3*)&up);
 
 	return;
 }
 
-D3DXMATRIX ClientCamera::GetViewMatrix()
+Matrix4x4 ClientCamera::GetViewMatrix()
 {
 	return m_viewMatrix;
 }
 
+Matrix4x4 ClientCamera::GetUIMatrix()
+{
+	return m_UiViewMatirx;
+}

@@ -31,6 +31,8 @@ public:
 	D3DVertexBuffer*	VertBuffer();
 
 	unsigned int		TrisNum();
+
+	void				draw(Matrix4x4 world);
 public:
 
 	D3DVertexBuffer*	m_pVertBuffer;

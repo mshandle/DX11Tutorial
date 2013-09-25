@@ -16,6 +16,8 @@ bool Texture::init( WCHAR* filename )
 {
 	HRESULT result;
 
+	D3DX11_IMAGE_LOAD_INFO info;
+
 	result = D3DX11CreateShaderResourceViewFromFile(SystemClass::Instance().renderModul()->GetDevice(), filename,NULL, NULL, &m_ptexture, NULL);
 	if(FAILED(result))
 	{

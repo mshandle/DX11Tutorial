@@ -6,7 +6,8 @@
 #include "Camera_Task.h"
 #include "Input_Task.h"
 #include "Sample_Task.h"
-
+#include "GUI_Task.h"
+#include "UILib/UISystem.h"
 
 #pragma comment( lib,"winmm.lib" )
 
@@ -14,7 +15,7 @@ World_Task World_Task::instance;
 Camera_Task Camera_Task::instance;
 Input_Task Input_Task::instance;
 Sample_Task Sample_Task::instance;
-
+GUI_Task	GUI_Task::instance;
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -71,6 +72,7 @@ bool SystemClass::Initialize()
 		return false;
 	}
 	
+	EVAUI::UISystem::instance().init();
 	MainTaskManager::Instance().init();
 	return true;
 }
@@ -148,7 +150,7 @@ bool SystemClass::Frame()
 	// Do the frame processing for the graphics object.
 	
 	// Clear the buffers to begin the scene.
-	m_D3D->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 0.0f);
 
 	result =  MainTaskManager::Instance().render();
 	// Present the rendered scene to the screen.

@@ -19,15 +19,19 @@ ID3D11Buffer* D3DVertexBuffer::buffer()
 	return m_buffer;
 }
 
-bool D3DVertexBuffer::init( unsigned int memsize, void* memory , unsigned int stride_)
+bool D3DVertexBuffer::init( unsigned int memsize, void* memory , unsigned int stride_, D3D11_USAGE flag /*= D3D11_USAGE_DEFAULT*/)
 {
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData;
 
-	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.Usage = flag;
 	vertexBufferDesc.ByteWidth = memsize;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = 0;
+	if(flag == D3D11_USAGE_DYNAMIC)
+		vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	else
+		vertexBufferDesc.CPUAccessFlags = 0;
+
 	vertexBufferDesc.MiscFlags = 0;
 	vertexBufferDesc.StructureByteStride = 0;
 

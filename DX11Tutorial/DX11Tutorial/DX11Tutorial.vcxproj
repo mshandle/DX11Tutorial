@@ -96,12 +96,21 @@
   <ItemGroup>
     <ClCompile Include="Camare\ClientCamera.cpp" />
     <ClCompile Include="FrameWork\Camera_Task.cpp" />
+    <ClCompile Include="FrameWork\GUI_Task.cpp" />
     <ClCompile Include="FrameWork\Input_Task.cpp" />
     <ClCompile Include="FrameWork\MainLoopTask.cpp" />
     <ClCompile Include="FrameWork\Sample_Task.cpp" />
     <ClCompile Include="FrameWork\SystemClass.cpp" />
     <ClCompile Include="FrameWork\World_Task.cpp" />
     <ClCompile Include="Input\InputClass.cpp" />
+    <ClCompile Include="math\IMath.cpp" />
+    <ClCompile Include="math\Matrix2x2.cpp" />
+    <ClCompile Include="math\Matrix3x3.cpp" />
+    <ClCompile Include="math\Matrix4x4.cpp" />
+    <ClCompile Include="math\Quaternion.cpp" />
+    <ClCompile Include="math\Vector2.cpp" />
+    <ClCompile Include="math\Vector3.cpp" />
+    <ClCompile Include="math\Vector4.cpp" />
     <ClCompile Include="Render\ColorShaderClass.cpp" />
     <ClCompile Include="Render\d3dclass.cpp" />
     <ClCompile Include="Render\D3DIndexBuffer.cpp" />
@@ -110,6 +119,7 @@
     <ClCompile Include="Render\GraphicsClass.cpp" />
     <ClCompile Include="Render\Model\model.cpp" />
     <ClCompile Include="Render\ShaderCBuffer.cpp" />
+    <ClCompile Include="Render\Terrain\TerrainBaseBlock.cpp" />
     <ClCompile Include="Render\Texture.cpp" />
     <ClCompile Include="Render\Texture2D.cpp" />
     <ClCompile Include="Render\TextureShaderClass.cpp" />
@@ -117,7 +127,11 @@
     <ClCompile Include="Sample\BufferAndShaderSample.cpp" />
     <ClCompile Include="Sample\ModleLoaderSample.cpp" />
     <ClCompile Include="Sample\TextureSample.cpp" />
+    <ClCompile Include="Sample\TextureUITest.cpp" />
     <ClCompile Include="Sample\XMLTestSample.cpp" />
+    <ClCompile Include="UILib\TextureView.cpp" />
+    <ClCompile Include="UILib\UiObject.cpp" />
+    <ClCompile Include="UILib\UISystem.cpp" />
     <ClCompile Include="win\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -125,12 +139,21 @@
     <ClInclude Include="Base\VertexFormat.h" />
     <ClInclude Include="Camare\ClientCamera.h" />
     <ClInclude Include="FrameWork\Camera_Task.h" />
+    <ClInclude Include="FrameWork\GUI_Task.h" />
     <ClInclude Include="FrameWork\Input_Task.h" />
     <ClInclude Include="FrameWork\MainLoopTask.h" />
     <ClInclude Include="FrameWork\Sample_Task.h" />
     <ClInclude Include="FrameWork\SystemClass.h" />
     <ClInclude Include="FrameWork\World_Task.h" />
     <ClInclude Include="Input\InputClass.h" />
+    <ClInclude Include="math\IMath.h" />
+    <ClInclude Include="math\Matrix2x2.h" />
+    <ClInclude Include="math\Matrix3x3.h" />
+    <ClInclude Include="math\Matrix4x4.h" />
+    <ClInclude Include="math\Quaternion.h" />
+    <ClInclude Include="math\Vector2.h" />
+    <ClInclude Include="math\Vector3.h" />
+    <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="Render\ColorShaderClass.h" />
     <ClInclude Include="Render\d3dclass.h" />
     <ClInclude Include="Render\D3DIndexBuffer.h" />
@@ -139,6 +162,7 @@
     <ClInclude Include="Render\GraphicsClass.h" />
     <ClInclude Include="Render\Model\model.h" />
     <ClInclude Include="Render\ShaderCBuffer.h" />
+    <ClInclude Include="Render\Terrain\TerrainBaseBlock.h" />
     <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Render\Texture2D.h" />
     <ClInclude Include="Render\TextureShaderClass.h" />
@@ -147,7 +171,12 @@
     <ClInclude Include="Sample\ModleLoaderSample.h" />
     <ClInclude Include="Sample\SampleInterface.h" />
     <ClInclude Include="Sample\TextureSample.h" />
+    <ClInclude Include="Sample\TextureUITest.h" />
     <ClInclude Include="Sample\XMLTestSample.h" />
+    <ClInclude Include="UILib\TextureView.h" />
+    <ClInclude Include="UILib\UIdefind.h" />
+    <ClInclude Include="UILib\UiObject.h" />
+    <ClInclude Include="UILib\UISystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\shader\color.ps" />

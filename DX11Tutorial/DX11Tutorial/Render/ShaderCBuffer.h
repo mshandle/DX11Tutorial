@@ -4,7 +4,7 @@
 #include <d3dx10math.h>
 #include <d3dx11async.h>
 #include <map>
-
+#include "../math/IMath.h"
 class ShaderCBuffer
 {
 
@@ -39,9 +39,9 @@ class WorldViewProject : public ShaderCBuffer
 public:
 	struct WorldViewProjectData
 	{
-		D3DXMATRIX world;
-		D3DXMATRIX view;
-		D3DXMATRIX project;
+		Matrix4x4 world;
+		Matrix4x4 view;
+		Matrix4x4 project;
 	};
 public:
 		WorldViewProject();
@@ -53,13 +53,29 @@ public:
 	virtual bool InitBuffer(void** buffer);
 };
 
+class UIWorldViewPorject:public ShaderCBuffer
+{
+public:
+	struct UIWorldViewPorjectData
+	{
+		Matrix4x4 world;
+		Matrix4x4 view;
+		Matrix4x4 project;
+	};
+public:
+	virtual int size();
+
+	virtual bool InitBuffer(void** buffer);
+
+};
+
 class Light:public ShaderCBuffer
 {
 public:
 	struct LightData
 	{
-		D3DXVECTOR4 lightColor;
-		D3DXVECTOR4 lightPostion;
+		Vector4 lightColor;
+		Vector4 lightPostion;
 	};
 public:
 
