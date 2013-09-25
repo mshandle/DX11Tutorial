@@ -76,10 +76,13 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile)
 		}
 		else if(line[0] == 'f')
 		{
-			//f 1/1/1 2/2/2 3/3/3
+			
 			FaceType value_;
+			//f 1/1 2/2 3/3
 			sscanf(line.c_str(),"f %d/%d %d/%d %d/%d", &value_.vIndex1,&value_.tIndex1, &value_.vIndex2, &value_.tIndex2, &value_.vIndex3, &value_.tIndex3);
-			//sscanf(line.c_str(),"f %d/%d/%d",&value_.nIndex1);
+			//f 1/1/1 2/2/2 3/3/3
+			//sscanf(line.c_str(),"f %d/%d %d/%d %d/%d", &value_.vIndex1,&value_.tIndex1,&value_.nIndex1, &value_.vIndex2, &value_.tIndex2,&value_.nIndex2, &value_.vIndex3, &value_.tIndex3,&value_.nIndex3);
+			
 			vIndex.push_back(value_);
 		}
 

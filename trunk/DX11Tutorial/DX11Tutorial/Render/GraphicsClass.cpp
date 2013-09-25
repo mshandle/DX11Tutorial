@@ -23,7 +23,7 @@ GraphicsClass::~GraphicsClass()
 
 bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 {
-	bool result;
+	bool result = true;
 
 
 	// Create the Direct3D object.

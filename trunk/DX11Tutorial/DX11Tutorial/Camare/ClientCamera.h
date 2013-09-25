@@ -1,6 +1,5 @@
 #pragma once
-
-#include <d3dx10math.h>
+#include "../math/IMath.h"
 
 class ClientCamera
 {
@@ -16,14 +15,18 @@ public:
 	void SetPosition(float x, float y, float z);
 	void SetRotation(float yaw, float pitch, float raw);
 
-	D3DXVECTOR3 GetPosition();
-	D3DXVECTOR3 GetRotation();
+	Vector3 GetPosition();
+	Vector3 GetRotation();
 
 	void update(float det);
 
-	D3DXMATRIX GetViewMatrix();
+	Matrix4x4 GetViewMatrix();
+
+
+	Matrix4x4 GetUIMatrix();
 private:
 	float m_positionX, m_positionY, m_positionZ;
 	float m_rotationX, m_rotationY, m_rotationZ;
-	D3DXMATRIX m_viewMatrix;
+	Matrix4x4 m_viewMatrix;
+	Matrix4x4 m_UiViewMatirx;
 };

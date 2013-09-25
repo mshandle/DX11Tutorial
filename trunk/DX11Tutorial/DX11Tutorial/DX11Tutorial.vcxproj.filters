@@ -49,6 +49,15 @@
     <Filter Include="Render\Model">
       <UniqueIdentifier>{018587bb-7a24-4c3a-b73b-033fc8a6342b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UILib">
+      <UniqueIdentifier>{19314a89-5a6e-4bcd-a2ae-77321eba94cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{161efde4-59b3-4f2d-b339-70f45ef642c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Terrain">
+      <UniqueIdentifier>{2377045c-ff88-456e-92ab-b74a1f7cf4d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camare\ClientCamera.cpp">
@@ -125,6 +134,48 @@
     </ClCompile>
     <ClCompile Include="Render\Model\model.cpp">
       <Filter>Render\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\TextureUITest.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector2.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector3.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Terrain\TerrainBaseBlock.cpp">
+      <Filter>Render\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector4.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Matrix2x2.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Matrix3x3.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Matrix4x4.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Quaternion.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\IMath.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="UILib\TextureView.cpp">
+      <Filter>UILib</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWork\GUI_Task.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="UILib\UiObject.cpp">
+      <Filter>UILib</Filter>
+    </ClCompile>
+    <ClCompile Include="UILib\UISystem.cpp">
+      <Filter>UILib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +259,51 @@
     </ClInclude>
     <ClInclude Include="Render\Model\model.h">
       <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\TextureUITest.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Vector2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Vector3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Terrain\TerrainBaseBlock.h">
+      <Filter>Render\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Vector4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Matrix2x2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Matrix3x3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Matrix4x4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Quaternion.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\IMath.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\TextureView.h">
+      <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\UIdefind.h">
+      <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\UiObject.h">
+      <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWork\GUI_Task.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\UISystem.h">
+      <Filter>UILib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

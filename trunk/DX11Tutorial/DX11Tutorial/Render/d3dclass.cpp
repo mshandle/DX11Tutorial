@@ -2,6 +2,7 @@
 // Filename: d3dclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
 #include "d3dclass.h"
+#include "..\math\IMath.h"
 
 
 D3DClass::D3DClass()
@@ -14,6 +15,9 @@ D3DClass::D3DClass()
 	m_depthStencilState = 0;
 	m_depthStencilView = 0;
 	m_rasterState = 0;
+	m_disableDepthStencilState = 0;
+	m_fViewWidth = 0.0f;
+	m_fViewHeight = 0.f;
 }
 
 
@@ -43,10 +47,14 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	ID3D11Texture2D* backBufferPtr;
 	D3D11_TEXTURE2D_DESC depthBufferDesc;
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
+	D3D11_DEPTH_STENCIL_DESC disdepthStaencilDesc;
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
 	D3D11_RASTERIZER_DESC rasterDesc;
 	D3D11_VIEWPORT viewport;
 	float fieldOfView, screenAspect;
+
+	m_fViewWidth = (float)screenWidth;
+	m_fViewHeight = (float)screenHeight;
 
 
 	// Store the vsync setting.
@@ -124,7 +132,6 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	{
 		return false;
 	}
-
 	// Release the display mode list.
 	delete [] displayModeList;
 	displayModeList = 0;
@@ -272,6 +279,27 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
+	//Initialize the description of the disable stencil state
+	ZeroMemory(&disdepthStaencilDesc, sizeof(disdepthStaencilDesc));
+	// Set up the description of the stencil state.
+	disdepthStaencilDesc.DepthEnable = false;
+	disdepthStaencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	disdepthStaencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	disdepthStaencilDesc.StencilEnable = true;
+	disdepthStaencilDesc.StencilReadMask = 0xFF;
+	disdepthStaencilDesc.StencilWriteMask = 0xFF;
+	disdepthStaencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	disdepthStaencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	disdepthStaencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	disdepthStaencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	disdepthStaencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	disdepthStaencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	disdepthStaencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	disdepthStaencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	result = m_device->CreateDepthStencilState(&disdepthStaencilDesc,&m_disableDepthStencilState);
+	if(FAILED(result))return false;
+
 	// Create the depth stencil state.
 	result = m_device->CreateDepthStencilState(&depthStencilDesc, &m_depthStencilState);
 	if(FAILED(result))
@@ -338,13 +366,15 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	screenAspect = (float)screenWidth / (float)screenHeight;
 
 	// Create the projection matrix for 3D rendering.
-	D3DXMatrixPerspectiveFovLH(&m_projectionMatrix, fieldOfView, screenAspect, screenNear, screenDepth);
+	//D3DXMatrixPerspectiveFovLH(&m_projectionMatrix, fieldOfView, screenAspect, screenNear, screenDepth);
+
+	IMath::BuildPerspectiveFovLHMatrix(m_projectionMatrix, fieldOfView, screenAspect, screenNear, screenDepth);
 
     // Initialize the world matrix to the identity matrix.
-    D3DXMatrixIdentity(&m_worldMatrix);
+	IMath::BuildIdentityMatrix(m_worldMatrix);
 
 	// Create an orthographic projection matrix for 2D rendering.
-	D3DXMatrixOrthoLH(&m_orthoMatrix, (float)screenWidth, (float)screenHeight, screenNear, screenDepth);
+	D3DXMatrixOrthoLH((D3DXMATRIX*)&m_orthoMatrix, (float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 
 	result = InitDefualtSampleState();
     return true;
@@ -407,6 +437,11 @@ void D3DClass::Shutdown()
 		m_swapChain = 0;
 	}
 
+	if(m_disableDepthStencilState)
+	{
+		m_disableDepthStencilState->Release();
+		m_disableDepthStencilState = 0;
+	}
 	return;
 }
 
@@ -462,19 +497,19 @@ ID3D11DeviceContext* D3DClass::GetDeviceContext()
 }
 
 
-D3DXMATRIX D3DClass::GetProjectionMatrix()
+Matrix4x4 D3DClass::GetProjectionMatrix()
 {
 	return m_projectionMatrix;
 }
 
 
-D3DXMATRIX& D3DClass::GetWorldMatrix()
+Matrix4x4& D3DClass::GetWorldMatrix()
 {
 	return m_worldMatrix;
 }
 
 
-D3DXMATRIX D3DClass::GetOrthoMatrix()
+Matrix4x4 D3DClass::GetOrthoMatrix()
 {
 	return m_orthoMatrix;
 }
@@ -514,4 +549,24 @@ HRESULT D3DClass::InitDefualtSampleState()
 ID3D11SamplerState* D3DClass::GetDefaultSampleState()
 {
 	return m_sampleState;
+}
+
+void D3DClass::TurnOnDepth()
+{
+	m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
+}
+
+void D3DClass::TurnOffDepth()
+{
+	m_deviceContext->OMSetDepthStencilState(m_disableDepthStencilState, 1);
+}
+
+float D3DClass::ViewWidth()
+{
+	return m_fViewWidth;
+}
+
+float D3DClass::ViewHeight()
+{
+	return m_fViewHeight;
 }

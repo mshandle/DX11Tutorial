@@ -126,7 +126,7 @@ bool TextureSample::render()
 
 	D3DXMATRIX world;
 	D3DXMatrixIdentity(&world);
-	m_pshader->Render(deviceContext,m_indexCount,world,ClientCamera::instance().GetViewMatrix(), SystemClass::Instance().renderModul()->GetProjectionMatrix(),m_ptexture->getTexture() );
+	m_pshader->Render(deviceContext,m_indexCount,world,IMath::MATRIX4X4TODX(ClientCamera::instance().GetViewMatrix()), IMath::MATRIX4X4TODX(SystemClass::Instance().renderModul()->GetProjectionMatrix()),m_ptexture->getTexture() );
 
 	return true;
 }

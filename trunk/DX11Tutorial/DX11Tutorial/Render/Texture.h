@@ -14,7 +14,12 @@ public:
 	void fini();
 
 	ID3D11ShaderResourceView* getTexture();
+
+
 private:
 
+	float m_nHeight;
+
+	float m_nWidht;
 	ID3D11ShaderResourceView* m_ptexture;
 };

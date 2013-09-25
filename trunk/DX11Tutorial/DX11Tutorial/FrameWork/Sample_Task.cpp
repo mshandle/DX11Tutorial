@@ -4,6 +4,7 @@
 #include "Sample/TextureSample.h"
 #include "Sample/ModleLoaderSample.h"
 #include "Sample/XMLTestSample.h"
+#include "Sample/TextureUITest.h"
 Sample_Task::Sample_Task(void):m_psample(NULL)
 {
 	MainTaskManager::Instance().add(TASK_SAMPLE, this);

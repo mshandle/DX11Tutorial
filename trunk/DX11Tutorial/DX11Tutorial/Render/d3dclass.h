@@ -17,11 +17,11 @@
 //////////////
 // INCLUDES //
 //////////////
+
 #include <dxgi.h>
 #include <d3dcommon.h>
 #include <d3d11.h>
-#include <d3dx10math.h>
-
+#include "../math/IMath.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: D3DClass
@@ -42,13 +42,23 @@ public:
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
 
-	D3DXMATRIX GetProjectionMatrix();
-	D3DXMATRIX& GetWorldMatrix();
-	D3DXMATRIX GetOrthoMatrix();
+	Matrix4x4 GetProjectionMatrix();
+	Matrix4x4& GetWorldMatrix();
+	Matrix4x4 GetOrthoMatrix();
+
+	float ViewWidth();
+
+	float ViewHeight();
 
 	void GetVideoCardInfo(char*, int&);
 
 	ID3D11SamplerState* GetDefaultSampleState();
+
+	void TurnOnDepth();
+
+	void TurnOffDepth();
+
+
 private:
 
 	HRESULT InitDefualtSampleState();
@@ -63,15 +73,20 @@ private:
 	ID3D11RenderTargetView* m_renderTargetView;
 	ID3D11Texture2D* m_depthStencilBuffer;
 	ID3D11DepthStencilState* m_depthStencilState;
+	ID3D11DepthStencilState* m_disableDepthStencilState;
 	ID3D11DepthStencilView* m_depthStencilView;
 	ID3D11RasterizerState* m_rasterState;
 
 
 	ID3D11SamplerState* m_sampleState;
 
-	D3DXMATRIX m_projectionMatrix;
-	D3DXMATRIX m_worldMatrix;
-	D3DXMATRIX m_orthoMatrix;
+	Matrix4x4 m_projectionMatrix;
+	Matrix4x4 m_worldMatrix;
+	Matrix4x4 m_orthoMatrix;
+
+	float	  m_fViewWidth;
+
+	float	  m_fViewHeight;
 };
 
 #endif

@@ -447,7 +447,7 @@ void IMath::BuildRotateMatrix(Matrix4x4& matOut, const Quaternion& q)
 	matOut.e[Matrix4x4::E44] = 1.0f;
 }
 
-void IMath::BuildOrthoMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float near, float far)
+void IMath::BuildOrthoMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float nearplant, float farplant)
 {
 	// 
 	// [        2/(right-left)                    0                         0            0 ]
@@ -467,16 +467,16 @@ void IMath::BuildOrthoMatrix(Matrix4x4& matOut, float left, float right, float b
 
 	matOut.e[Matrix4x4::E31] = 0.0f;
 	matOut.e[Matrix4x4::E32] = 0.0f;
-	matOut.e[Matrix4x4::E33] = -2.0f/(far - near);
+	matOut.e[Matrix4x4::E33] = -2.0f/(farplant - nearplant);
 	matOut.e[Matrix4x4::E34] = 0.0f;
 
 	matOut.e[Matrix4x4::E41] = -(right + left)/(right - left);
 	matOut.e[Matrix4x4::E42] = -(top + bottom)/(top - bottom);
-	matOut.e[Matrix4x4::E43] = -(far + near)/(far - near);
+	matOut.e[Matrix4x4::E43] = -(farplant + nearplant)/(farplant - nearplant);
 	matOut.e[Matrix4x4::E44] = 1.0f;
 }
 
-void IMath::BuildFrustumMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float near, float far)
+void IMath::BuildFrustumMatrix(Matrix4x4& matOut, float left, float right, float bottom, float top, float nearplant, float farplant)
 {
 	// 
 	// [    2*near/(right-left)                0                         0              0 ]
@@ -484,23 +484,123 @@ void IMath::BuildFrustumMatrix(Matrix4x4& matOut, float left, float right, float
 	// [ (right+left)/(right-left)  (top+bottom)/(top-bottom)  -(far+near)/(far-near)  -1 ]
 	// [           0                           0               -2*far*near/(far-near)   0 ]
 	// 
-	matOut.e[Matrix4x4::E11] = 2.0f*near/(right - left);
+	matOut.e[Matrix4x4::E11] = 2.0f*nearplant/(right - left);
 	matOut.e[Matrix4x4::E12] = 0.0f;
 	matOut.e[Matrix4x4::E13] = 0.0f;
 	matOut.e[Matrix4x4::E14] = 0.0f;
 
 	matOut.e[Matrix4x4::E21] = 0.0f;
-	matOut.e[Matrix4x4::E22] = 2.0f*near/(top - bottom);
+	matOut.e[Matrix4x4::E22] = 2.0f*nearplant/(top - bottom);
 	matOut.e[Matrix4x4::E23] = 0.0f;
 	matOut.e[Matrix4x4::E24] = 0.0f;
 
 	matOut.e[Matrix4x4::E31] = (right+left)/(right-left);
 	matOut.e[Matrix4x4::E32] = (top+bottom)/(top-bottom);
-	matOut.e[Matrix4x4::E33] = -(far+near)/(far-near);
+	matOut.e[Matrix4x4::E33] = -(farplant+nearplant)/(farplant-nearplant);
 	matOut.e[Matrix4x4::E34] = -1.0f;
 
 	matOut.e[Matrix4x4::E41] = 0.0f;
 	matOut.e[Matrix4x4::E42] = 0.0f;
-	matOut.e[Matrix4x4::E43] = -2*far*near/(far-near);
+	matOut.e[Matrix4x4::E43] = -2*farplant*nearplant/(farplant-nearplant);
 	matOut.e[Matrix4x4::E44] = 0.0f;
+}
+
+void IMath::BuildPerspectiveFovLHMatrix( Matrix4x4& matOutm ,float fov_, float aspect, float nearplant, float farplant )
+{
+	float cot = 1 / (float)tan(fov_ * 0.5f);
+	float rcp = 1 / (farplant - nearplant);
+
+	matOutm.e[Matrix4x4::E11] = (cot / aspect);
+	matOutm.e[Matrix4x4::E12] = 0;
+	matOutm.e[Matrix4x4::E13] = 0;
+	matOutm.e[Matrix4x4::E14] = 0;
+
+	matOutm.e[Matrix4x4::E21] = 0;
+	matOutm.e[Matrix4x4::E22] = cot;
+	matOutm.e[Matrix4x4::E23] = 0;
+	matOutm.e[Matrix4x4::E24] = 0;
+
+	matOutm.e[Matrix4x4::E31] = 0;
+	matOutm.e[Matrix4x4::E32] = 0;
+	matOutm.e[Matrix4x4::E33] = rcp * farplant;
+	matOutm.e[Matrix4x4::E34] = 1;
+
+	matOutm.e[Matrix4x4::E41] = 0;
+	matOutm.e[Matrix4x4::E42] = 0;
+	matOutm.e[Matrix4x4::E43] = - (rcp  * farplant * nearplant);
+	matOutm.e[Matrix4x4::E44] = 0;
+
+}
+
+void IMath::BuildPersPectiveForRHMatrix( Matrix4x4& matOutm, float fov_, float aspect, float nearplant, float farplant )
+{
+	float cot = 1 / (float)tan(fov_ * 0.5f);
+	float rcp = 1 / (nearplant - farplant);
+
+	matOutm.e[Matrix4x4::E11] = (cot / aspect);
+	matOutm.e[Matrix4x4::E12] = 0;
+	matOutm.e[Matrix4x4::E13] = 0;
+	matOutm.e[Matrix4x4::E14] = 0;
+
+	matOutm.e[Matrix4x4::E21] = 0;
+	matOutm.e[Matrix4x4::E22] = cot;
+	matOutm.e[Matrix4x4::E23] = 0;
+	matOutm.e[Matrix4x4::E24] = 0;
+
+	matOutm.e[Matrix4x4::E31] = 0;
+	matOutm.e[Matrix4x4::E32] = 0;
+	matOutm.e[Matrix4x4::E33] = rcp * farplant;
+	matOutm.e[Matrix4x4::E34] = 1;
+
+	matOutm.e[Matrix4x4::E41] = 0;
+	matOutm.e[Matrix4x4::E42] = 0;
+	matOutm.e[Matrix4x4::E43] = - (rcp  * farplant * nearplant);
+	matOutm.e[Matrix4x4::E44] = 0;
+}
+Matrix4x4 IMath::DXTOMATRIX4X4( D3DXMATRIX matrix )
+{
+	Matrix4x4 res(matrix.m[0][0],matrix.m[0][1],matrix.m[0][2],matrix.m[0][3],
+				  matrix.m[1][0],matrix.m[1][1],matrix.m[1][2],matrix.m[1][3],
+				  matrix.m[2][0],matrix.m[2][1],matrix.m[2][2],matrix.m[2][3],
+				  matrix.m[3][0],matrix.m[3][1],matrix.m[3][2],matrix.m[3][3]);
+
+	return res;
+}
+
+D3DXMATRIX IMath::MATRIX4X4TODX( Matrix4x4 matrix )
+{
+	D3DXMATRIX res(matrix.e[Matrix4x4::E11],matrix.e[Matrix4x4::E12],matrix.e[Matrix4x4::E13],matrix.e[Matrix4x4::E14],
+					matrix.e[Matrix4x4::E21],matrix.e[Matrix4x4::E22],matrix.e[Matrix4x4::E23],matrix.e[Matrix4x4::E24],
+					matrix.e[Matrix4x4::E31],matrix.e[Matrix4x4::E32],matrix.e[Matrix4x4::E33],matrix.e[Matrix4x4::E34],
+					matrix.e[Matrix4x4::E41],matrix.e[Matrix4x4::E42],matrix.e[Matrix4x4::E43],matrix.e[Matrix4x4::E44]);
+
+	return res;
+}
+
+void IMath::BuildYawPitchRoll( Matrix4x4& matOut, float yaw_, float pitch, float Roll )
+{
+
+	Matrix4x4 RotataY;
+	IMath::BuildIdentityMatrix(RotataY);
+	IMath::BuildRotateMatrixZ(RotataY, yaw_);
+
+	Matrix4x4 RotataX;
+	IMath::BuildIdentityMatrix(RotataX);
+	IMath::BuildRotateMatrixZ(RotataX, pitch);
+
+
+	Matrix4x4 RotataZ;
+	IMath::BuildIdentityMatrix(RotataZ);
+	IMath::BuildRotateMatrixZ(RotataZ, Roll);
+
+	
+
+	IMath::BuildIdentityMatrix(matOut);
+
+	matOut *= RotataY;
+
+	matOut *= RotataX;
+
+	matOut *= RotataZ;
+
 }
