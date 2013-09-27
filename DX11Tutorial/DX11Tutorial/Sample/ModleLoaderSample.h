@@ -5,6 +5,7 @@
 #include "../Render/Effect.h"
 #include "../Render/Texture.h"
 #include "../Render/Model/model.h"
+#include "../UILib/TextureView.h"
 
 class ModleLoaderSample :
 	public BaseSample
@@ -28,4 +29,6 @@ private:
 	Effect* m_peffect;
 
 	Texture* m_pTexturel;
+
+	EVAUI::TextureView* pTextureView;
 };

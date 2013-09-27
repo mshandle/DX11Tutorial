@@ -26,7 +26,11 @@ Vector2 TextureView::Size()
 
 void TextureView::Size( Vector2 size_ )
 {
-	m_vSize = size_;
+	if(m_vSize != size_)
+	{
+		m_vSize = size_;
+		m_bdirty = true;
+	}
 }
 
 Vector2 TextureView::position()
@@ -36,7 +40,12 @@ Vector2 TextureView::position()
 
 void TextureView::position( Vector2 position_ )
 {
-	m_positon = position_;
+	if(m_positon != position_)
+	{
+		m_positon = position_;
+		m_bdirty = true;
+	}
+	
 }
 
 void TextureView::draw( Matrix4x4 world )
@@ -59,7 +68,8 @@ void TextureView::draw( Matrix4x4 world )
 
 	Effect* pXYZUV = UISystem::instance().EffectType(UIET_XYZUV);
 
-	pXYZUV->setTexture("diffuse", m_pTexture->getTexture());
+	if(NULL == m_pTexture) return;
+	pXYZUV->setTexture("diffuse", m_pTexture->GetShaderResource());
 	
 	bool  result = pXYZUV->commit();
 
@@ -67,13 +77,69 @@ void TextureView::draw( Matrix4x4 world )
 
 }
 
-bool TextureView::init( WCHAR* filename, int widht, int height )
+bool TextureView::initTextureFile( WCHAR* filename, int widht, int height )
 {
-	m_pTexture = new Texture();
+	Texture*pTexture = new Texture();
 
-	if(!m_pTexture->init(filename))
+	if(!pTexture->initWithFile(filename))
 		return false;
+	m_pTexture = pTexture;
+	return initWithOutTexture(widht, height);
 
+}
+
+void TextureView::update( float det )
+{
+	if(!m_bdirty)
+	{
+		UIObject::update(det);
+		return;
+	}
+
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	
+	XYZUV* vertices = NULL;
+	XYZUV* verticesPtr = NULL;
+
+	vertices = new XYZUV[4];
+	// Create the index array.
+	
+
+
+	vertices[0].position = D3DXVECTOR3(m_positon.x, m_positon.y -m_vSize.y , 0.0f);  // Bottom left.
+	vertices[0].uv = D3DXVECTOR2(0.0f,1.0);
+
+	vertices[1].position = D3DXVECTOR3(m_positon.x, m_positon.y, 0.0f);  // Top left.
+	vertices[1].uv = D3DXVECTOR2(0.0f,0.0);
+
+	vertices[2].position = D3DXVECTOR3(m_positon.x +m_vSize.x ,  m_positon.y -m_vSize.y, 0.0f);  // Bottom right.
+	vertices[2].uv = D3DXVECTOR2(1.0f,1.0);
+
+	vertices[3].position = D3DXVECTOR3(m_positon.x +m_vSize.x, m_positon.y, 0.0f);//top right
+	vertices[3].uv = D3DXVECTOR2(1.0f,0.0);
+
+
+	ID3D11DeviceContext* deviceContext = SystemClass::Instance().renderModul()->GetDeviceContext();
+
+	deviceContext->Map(m_pVertexBuffer->buffer(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+	verticesPtr = (XYZUV*)mappedResource.pData;
+
+	// Copy the data into the vertex buffer.
+	memcpy(verticesPtr, (void*)vertices, (sizeof(XYZUV) * 4));
+
+	// Unlock the vertex buffer.
+	deviceContext->Unmap(m_pVertexBuffer->buffer(), 0);
+
+	// Release the vertex array as it is no longer needed.
+	delete [] vertices;
+	vertices = 0;
+
+	UIObject::update(det);
+}
+
+bool TextureView::initWithOutTexture( int widht, int height )
+{
 	m_vSize.x = (float)widht;
 	m_vSize.y = (float)height;
 
@@ -97,21 +163,15 @@ bool TextureView::init( WCHAR* filename, int widht, int height )
 	}
 
 	vertices[0].position = D3DXVECTOR3(m_positon.x, m_positon.y -m_vSize.y , 0.0f);  // Bottom left.
-
 	vertices[0].uv = D3DXVECTOR2(0.0f,1.0);
 
 	vertices[1].position = D3DXVECTOR3(m_positon.x, m_positon.y, 0.0f);  // Top left.
-
 	vertices[1].uv = D3DXVECTOR2(0.0f,0.0);
 
-
 	vertices[2].position = D3DXVECTOR3(m_positon.x +m_vSize.x ,  m_positon.y -m_vSize.y, 0.0f);  // Bottom right.
-
 	vertices[2].uv = D3DXVECTOR2(1.0f,1.0);
 
-
 	vertices[3].position = D3DXVECTOR3(m_positon.x +m_vSize.x, m_positon.y, 0.0f);//top right
-
 	vertices[3].uv = D3DXVECTOR2(1.0f,0.0);
 	// Load the index array with data.
 	indices[0] = 0;  // Bottom left.
@@ -139,9 +199,8 @@ bool TextureView::init( WCHAR* filename, int widht, int height )
 	return true;
 }
 
-void TextureView::update( float det )
+void TextureView::setTexture( ITexture* pTexture )
 {
-
-	UIObject::update(det);
+	m_pTexture = pTexture;
 }
 ENDUINAMESPACE

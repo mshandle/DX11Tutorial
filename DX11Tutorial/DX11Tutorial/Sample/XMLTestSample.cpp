@@ -87,7 +87,7 @@ bool XMLTestSample::init()
 	m_ptexture = new Texture();
 	if(m_ptexture)
 	{
-		result = m_ptexture->init(L"../res/texture/db_doty_shatu003.dds");
+		result = m_ptexture->initWithFile(L"../res/texture/db_doty_shatu003.dds");
 	}
 	
 
@@ -127,7 +127,7 @@ bool XMLTestSample::render()
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	bool  result = effect->commit();
-	effect->setTexture("diffuse", m_ptexture->getTexture());
+	effect->setTexture("diffuse", m_ptexture->GetShaderResource());
 
 
 	deviceContext->DrawIndexed(m_indexCount, 0, 0);

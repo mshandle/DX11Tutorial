@@ -31,7 +31,9 @@ void GUI_Task::update( float delTime )
 bool GUI_Task::render()
 {
 	SystemClass::Instance().renderModul()->TurnOffDepth();
+	SystemClass::Instance().renderModul()->TurnOnAlphaBlend();
 	EVAUI::UISystem::instance().Root()->visit(IMath::MAT4X4_IDENTITY);
+	SystemClass::Instance().renderModul()->TurnOffAlphaBlend();
 	SystemClass::Instance().renderModul()->TurnOnDepth();
 	return true;
 }

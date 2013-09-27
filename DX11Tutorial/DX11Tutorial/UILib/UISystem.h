@@ -14,6 +14,7 @@
 #include "UIdefind.h"
 #include "UiObject.h"
 #include "Render/Effect.h"
+#include "fontclass.h"
 BEGINUINAMESPACE
 
 class UISystem
@@ -41,7 +42,7 @@ public:
 
 	Vector2		TopRight();
 
-
+	FontClass*	FontEngine();
 
 private:
 
@@ -52,6 +53,8 @@ private:
 private:
 
 	UIObject* m_pRoot;
+
+	FontClass*	m_pFont;
 
 	EffectMap m_Effects;
 };

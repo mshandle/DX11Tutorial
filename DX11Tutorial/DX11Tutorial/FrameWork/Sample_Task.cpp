@@ -5,6 +5,8 @@
 #include "Sample/ModleLoaderSample.h"
 #include "Sample/XMLTestSample.h"
 #include "Sample/TextureUITest.h"
+#include "Sample/FrontTestSample.h"
+#include "Sample/RTTSample.h"
 Sample_Task::Sample_Task(void):m_psample(NULL)
 {
 	MainTaskManager::Instance().add(TASK_SAMPLE, this);
@@ -17,7 +19,7 @@ Sample_Task::~Sample_Task(void)
 
 bool Sample_Task::init()
 {
-	m_psample = new ModleLoaderSample();
+	m_psample = new RTTSample();
 	if(NULL != m_psample)
 		return m_psample->init();
 	return false;
