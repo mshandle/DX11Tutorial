@@ -1,5 +1,6 @@
 #include "D3DVertexBuffer.h"
 #include "framework/SystemClass.h"
+#include "../Base/VertexFormat.h"
 
 D3DVertexBuffer::D3DVertexBuffer(void):
 							m_buffer(NULL),
@@ -38,7 +39,6 @@ bool D3DVertexBuffer::init( unsigned int memsize, void* memory , unsigned int st
 	vertexData.pSysMem = memory;
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
-
 	HRESULT result = SystemClass::Instance().renderModul()->GetDevice()->CreateBuffer(&vertexBufferDesc, &vertexData, &m_buffer);
 	if(FAILED(result))
 	{

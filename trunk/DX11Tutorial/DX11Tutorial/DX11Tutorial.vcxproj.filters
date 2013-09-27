@@ -177,6 +177,18 @@
     <ClCompile Include="UILib\UISystem.cpp">
       <Filter>UILib</Filter>
     </ClCompile>
+    <ClCompile Include="Sample\FrontTestSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="UILib\FrontLable.cpp">
+      <Filter>UILib</Filter>
+    </ClCompile>
+    <ClCompile Include="UILib\fontclass.cpp">
+      <Filter>UILib</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\RTTSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\EngineBase.h">
@@ -304,6 +316,21 @@
     </ClInclude>
     <ClInclude Include="UILib\UISystem.h">
       <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\FrontLable.h">
+      <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\fontclass.h">
+      <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\FrontTestSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\RTTSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\ITexture.h">
+      <Filter>Render\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

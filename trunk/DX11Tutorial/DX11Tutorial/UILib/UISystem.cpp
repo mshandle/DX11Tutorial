@@ -23,9 +23,12 @@ bool UISystem::init()
 
 	Effect* effect = new Effect();
 	result = effect->load("../res/shader/uixyzuv.xml");
-
 	m_Effects[UIET_XYZUV] = effect;
 
+	
+	m_pFont = new FontClass();
+
+	result = m_pFont->Initialize("../res/font/fontdata.data",L"../res/font/font.dds");
 	return result;
 }
 
@@ -57,5 +60,10 @@ Vector2 UISystem::TopMid()
 Vector2 UISystem::TopRight()
 {
 	return Vector2(SystemClass::Instance().renderModul()->ViewWidth()/2.0f,SystemClass::Instance().renderModul()->ViewHeight()/2);
+}
+
+FontClass* UISystem::FontEngine()
+{
+	return m_pFont;
 }
 ENDUINAMESPACE

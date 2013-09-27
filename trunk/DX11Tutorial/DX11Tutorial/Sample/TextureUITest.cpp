@@ -92,7 +92,7 @@ bool TextureUITest::init()
 	ClientCamera::instance().SetPosition(0.0f, 0.0f, -1.0f);
 	TextureView* pTextureView= new TextureView();
 	pTextureView->position(EVAUI::UISystem::instance().TopLeft());
-	if(!pTextureView->init(L"../res/texture/bg2.png",100,768))
+	if(!pTextureView->initTextureFile(L"../res/texture/bg2.png",100,768))
 		return false;
 	UISystem::instance().Root()->addchild(pTextureView);
 	return true;

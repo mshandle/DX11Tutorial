@@ -12,7 +12,7 @@ Texture::~Texture(void)
 {
 }
 
-bool Texture::init( WCHAR* filename )
+bool Texture::initWithFile( WCHAR* filename )
 {
 	HRESULT result;
 
@@ -33,7 +33,7 @@ void Texture::fini()
 	SAFE_RELEASE(m_ptexture)
 }
 
-ID3D11ShaderResourceView* Texture::getTexture()
+ID3D11ShaderResourceView* Texture::GetShaderResource()
 {
 	return m_ptexture;
 }

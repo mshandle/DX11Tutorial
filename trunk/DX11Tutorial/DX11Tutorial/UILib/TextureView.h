@@ -19,6 +19,7 @@
 #include "Render/D3DVertexBuffer.h"
 #include "Render/D3DIndexBuffer.h"
 #include "Render/Texture.h"
+#include "../Render/ITexture.h"
 
 BEGINUINAMESPACE
 
@@ -42,9 +43,14 @@ public:
 
 	void	position(Vector2 position_);
 
+	void	setTexture(ITexture* pTexture);
+
 public:
 
-	bool	init(WCHAR* filename, int widht, int height);
+	bool	initTextureFile(WCHAR* filename, int widht, int height);
+
+
+	bool	initWithOutTexture( int widht, int height );
 
 	void	draw(Matrix4x4 world);
 
@@ -60,7 +66,7 @@ private:
 
 	D3DVertexBuffer* m_pVertexBuffer;
 
-	Texture*		m_pTexture;
+	ITexture*		m_pTexture;
 
 
 };

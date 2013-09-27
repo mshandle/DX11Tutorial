@@ -80,7 +80,7 @@ bool TextureSample::init()
 	m_ptexture = new Texture();
 	if(m_ptexture)
 	{
-		result = m_ptexture->init(L"../res/texture/db_doty_shatu003.dds");
+		result = m_ptexture->initWithFile(L"../res/texture/db_doty_shatu003.dds");
 	}
 	m_pshader = new TextureShaderClass();
 	if(m_pshader)
@@ -126,7 +126,7 @@ bool TextureSample::render()
 
 	D3DXMATRIX world;
 	D3DXMatrixIdentity(&world);
-	m_pshader->Render(deviceContext,m_indexCount,world,IMath::MATRIX4X4TODX(ClientCamera::instance().GetViewMatrix()), IMath::MATRIX4X4TODX(SystemClass::Instance().renderModul()->GetProjectionMatrix()),m_ptexture->getTexture() );
+	m_pshader->Render(deviceContext,m_indexCount,world,IMath::MATRIX4X4TODX(ClientCamera::instance().GetViewMatrix()), IMath::MATRIX4X4TODX(SystemClass::Instance().renderModul()->GetProjectionMatrix()),m_ptexture->GetShaderResource() );
 
 	return true;
 }

@@ -16,8 +16,8 @@
 
 #include <d3d11.h>
 #include <vector>
-
-class Texture2D
+#include "ITexture.h"
+class Texture2D : public ITexture
 {
 public:
     // Construct a Texture2D

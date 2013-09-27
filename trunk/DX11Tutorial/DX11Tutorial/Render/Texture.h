@@ -2,18 +2,18 @@
 
 #include <d3d11.h>
 #include <d3dx11tex.h>
-
-class Texture
+#include "ITexture.h"
+class Texture : public ITexture
 {
 public:
 	Texture(void);
 	~Texture(void);
 public:
-	bool init(WCHAR* filename);
+	bool initWithFile(WCHAR* filename);
 
 	void fini();
 
-	ID3D11ShaderResourceView* getTexture();
+	ID3D11ShaderResourceView* GetShaderResource();
 
 
 private:

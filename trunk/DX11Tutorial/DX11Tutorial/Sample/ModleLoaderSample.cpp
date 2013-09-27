@@ -32,19 +32,11 @@ bool ModleLoaderSample::init()
 	m_pTexturel = new Texture();
 	if(m_pTexturel)
 	{
-		result = m_pTexturel->init(L"../res/texture/aka_t00_wp.dds");
+		result = m_pTexturel->initWithFile(L"../res/texture/aka_t00_wp.dds");
 	}
 
 	
 	ClientCamera::instance().SetPosition(0.0f, 10.0f, -100.0f);
-	//void SetRotation(float yaw, float pitch, float raw);
-	//ClientCamera::instance().SetRotation(0.0, 0.0f, 0.0f);
-
-	/*D3DXMATRIX translate;
-	D3DXMATRIX translatex;
-	D3DXMatrixRotationZ(&translate,3.1415926 * 0.5f);
-	D3DXMatrixRotationY(&translatex,3.1415926 * 0.5f);*/
-
 	Matrix4x4 translate;
 
 	IMath::BuildIdentityMatrix(translate);
@@ -62,9 +54,9 @@ bool ModleLoaderSample::init()
 	worldMat *= translateY;
 	worldMat *= translate;
 
-	TextureView* pTextureView= new TextureView();
+	pTextureView= new TextureView();
 	pTextureView->position(EVAUI::UISystem::instance().TopLeft());
-	if(!pTextureView->init(L"../res/texture/bg2.png",100,768))
+	if(!pTextureView->initTextureFile(L"../res/texture/bg2.png",100,768))
 		return false;
 	UISystem::instance().Root()->addchild(pTextureView);
 
@@ -88,8 +80,9 @@ void ModleLoaderSample::update( float det )
 
 bool ModleLoaderSample::render()
 {
-	m_peffect->setTexture("diffuse", m_pTexturel->getTexture());
+	m_peffect->setTexture("diffuse", m_pTexturel->GetShaderResource());
 	bool  result = m_peffect->commit();
 	m_pModel->draw(IMath::MAT4X4_IDENTITY);
 	return true;
 }
+
