@@ -17,8 +17,13 @@ class UIObject
 {
 public:
 
-	UIObject(){m_bdirty = false;}
+	UIObject();
+
+	~UIObject();
+
 	typedef std::vector<UIObject*> VOBJECT;
+
+public:
 
 	virtual void update(float det);
 
@@ -28,17 +33,30 @@ public:
 
 public:
 
-	void	addchild(UIObject* pObject);
+	void	addchild(UIObject* pObject,int zOder = 0);
 
 	void	remove(UIObject* pObject);
 
+	void	removeAllChildren();
+
+	virtual int getZorder();
+
+
+	virtual void setZorder(int value_);
+
+private:
+
+	virtual void sortChilds();
+
 protected:
 
-	VOBJECT m_Objects;
+	VOBJECT		m_Objects;
 
-	UIObject* m_parent;
+	UIObject*	m_parent;
 
-	bool m_bdirty;
+	bool		m_bdirty;
+
+	int			m_nZoder;
 };
 
 ENDUINAMESPACE

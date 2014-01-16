@@ -12,6 +12,7 @@
 #define FRONTTESTSAMPLE_H_
 
 #include "Sample/SampleInterface.h"
+#include "../UILib/FrontLable.h"
 
 class FrontTestSample: public BaseSample
 {
@@ -38,6 +39,8 @@ public:
 	virtual bool render();
 
 private:
+
+	EVAUI::FrontLable* pLable;
 };
 
 #endif//FRONTTESTSAMPLE_H_

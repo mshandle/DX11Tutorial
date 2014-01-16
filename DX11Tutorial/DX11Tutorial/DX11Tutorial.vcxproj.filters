@@ -58,6 +58,9 @@
     <Filter Include="Render\Terrain">
       <UniqueIdentifier>{2377045c-ff88-456e-92ab-b74a1f7cf4d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{ed2bc500-8bfc-4ece-b29c-f2e9254b3011}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camare\ClientCamera.cpp">
@@ -188,6 +191,15 @@
     </ClCompile>
     <ClCompile Include="Sample\RTTSample.cpp">
       <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="UILib\DebugView.cpp">
+      <Filter>UILib</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\FpsClass.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\CpuUseage.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +343,15 @@
     </ClInclude>
     <ClInclude Include="Render\ITexture.h">
       <Filter>Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="UILib\DebugView.h">
+      <Filter>UILib</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\FpsClass.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\CpuUseage.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

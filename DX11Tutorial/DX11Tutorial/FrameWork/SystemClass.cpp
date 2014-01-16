@@ -8,6 +8,8 @@
 #include "Sample_Task.h"
 #include "GUI_Task.h"
 #include "UILib/UISystem.h"
+#include "Util/FpsClass.h"
+#include "Util/CpuUseage.h"
 
 #pragma comment( lib,"winmm.lib" )
 
@@ -25,7 +27,9 @@ const float SCREEN_NEAR = 0.1f;
 SystemClass::SystemClass():
 							dTime_(0.f), 
 							totalTime_(0.f),
-							fps_(0)
+							fps_(0),
+							pFpsClass(NULL),
+							pCpuClass(NULL)
 {
 	m_D3D = NULL;
 	lastTime_ =  timeGetTime();
@@ -72,8 +76,16 @@ bool SystemClass::Initialize()
 		return false;
 	}
 	
+	pFpsClass = new FpsClass();
+	pFpsClass->Initialize();
+
+	pCpuClass = new CpuUseage();
+	pCpuClass->init();
+
 	EVAUI::UISystem::instance().init();
 	MainTaskManager::Instance().init();
+
+	
 	return true;
 }
 
@@ -82,8 +94,12 @@ void SystemClass::Shutdown()
 {
 	// Release the graphics object.
 
+	SAFE_DELETE(pFpsClass);
+	pCpuClass->Shutdown();
+
+
 	SAFE_DELETE(m_D3D);
-	
+
 	MainTaskManager::Instance().fini();
 	// Shutdown the window.
 	ShutdownWindows();
@@ -325,6 +341,9 @@ void SystemClass::calculateFrameTime()
 	totalTime_ += dTime_;
 	lastTime_ = thisTime;
 	fps_ = 1.0f/ dTime_;
+
+	pFpsClass->update(dTime_);
+	pCpuClass->update(dTime_);
 }
 
 D3DClass* SystemClass::renderModul()
@@ -339,7 +358,17 @@ HWND* SystemClass::HWnd()
 
 void SystemClass::WarningDialog( WCHAR* tile, WCHAR* Msg )
 {
-		MessageBox(m_hwnd, tile, Msg, MB_OK);
+	MessageBox(m_hwnd, tile, Msg, MB_OK);
+}
+
+FpsClass* SystemClass::FPS()
+{
+	return pFpsClass;
+}
+
+CpuUseage* SystemClass::CPU()
+{
+	return pCpuClass;
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {

@@ -12,7 +12,7 @@ bool RTTSample::init()
 	EVAUI::UISystem::instance().Root()->addchild(pLable);
 
 	bool result = true;
-	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/Mycube.obj");
+	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/sphere.obj");
 
 	if(NULL == m_pModel)
 		return false;
@@ -24,11 +24,11 @@ bool RTTSample::init()
 	m_pTexturel = new Texture();
 	if(m_pTexturel)
 	{
-		result = m_pTexturel->initWithFile(L"../res/texture/aka_t00_wp.dds");
+		result = m_pTexturel->initWithFile(L"../res/texture/bg.png");
 	}
 
 
-	ClientCamera::instance().SetPosition(0.0f, 10.0f, -300.0f);
+	ClientCamera::instance().SetPosition(0.0f, 10.0f, -400.0f);
 	Matrix4x4 translate;
 
 	IMath::BuildIdentityMatrix(translate);
@@ -42,9 +42,9 @@ bool RTTSample::init()
 
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
 
-	worldMat *= translateZ;
-	worldMat *= translateY;
-	worldMat *= translate;
+	//worldMat *= translateZ;
+	//worldMat *= translateY;
+	//worldMat *= translate;
 
 	EVAUI::TextureView* pBackGround = new EVAUI::TextureView();
 	result = pBackGround->initTextureFile(L"../res/texture/bg.png",SystemClass::Instance().renderModul()->ViewWidth()/4.0f, SystemClass::Instance().renderModul()->ViewHeight()/4.0f);
@@ -72,7 +72,7 @@ void RTTSample::update( float det )
 {
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
 	Matrix4x4 rotateY;
-	IMath::BuildRotateMatrixY(rotateY, det);
+	IMath::BuildRotateMatrixX(rotateY, det);
 	worldMat *= rotateY;
 }
 
