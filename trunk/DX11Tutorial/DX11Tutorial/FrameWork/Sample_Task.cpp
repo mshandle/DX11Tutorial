@@ -19,7 +19,7 @@ Sample_Task::~Sample_Task(void)
 
 bool Sample_Task::init()
 {
-	m_psample = new RTTSample();
+	m_psample = new FrontTestSample();
 	if(NULL != m_psample)
 		return m_psample->init();
 	return false;

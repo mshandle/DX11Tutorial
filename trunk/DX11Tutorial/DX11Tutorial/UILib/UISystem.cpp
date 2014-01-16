@@ -1,6 +1,7 @@
 #include "UISystem.h"
 #include "Base/EngineBase.h"
 #include "../FrameWork/SystemClass.h"
+#include "DebugView.h"
 
 BEGINUINAMESPACE
 
@@ -29,6 +30,13 @@ bool UISystem::init()
 	m_pFont = new FontClass();
 
 	result = m_pFont->Initialize("../res/font/fontdata.data",L"../res/font/font.dds");
+	
+	
+	DebugView* pDebugView = new DebugView();
+	pDebugView->init();
+	m_pRoot->addchild(pDebugView);
+
+
 	return result;
 }
 

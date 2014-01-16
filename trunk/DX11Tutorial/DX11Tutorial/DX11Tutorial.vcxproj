@@ -131,11 +131,14 @@
     <ClCompile Include="Sample\TextureSample.cpp" />
     <ClCompile Include="Sample\TextureUITest.cpp" />
     <ClCompile Include="Sample\XMLTestSample.cpp" />
+    <ClCompile Include="UILib\DebugView.cpp" />
     <ClCompile Include="UILib\fontclass.cpp" />
     <ClCompile Include="UILib\FrontLable.cpp" />
     <ClCompile Include="UILib\TextureView.cpp" />
     <ClCompile Include="UILib\UiObject.cpp" />
     <ClCompile Include="UILib\UISystem.cpp" />
+    <ClCompile Include="Util\CpuUseage.cpp" />
+    <ClCompile Include="Util\FpsClass.cpp" />
     <ClCompile Include="win\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,12 +183,15 @@
     <ClInclude Include="Sample\TextureSample.h" />
     <ClInclude Include="Sample\TextureUITest.h" />
     <ClInclude Include="Sample\XMLTestSample.h" />
+    <ClInclude Include="UILib\DebugView.h" />
     <ClInclude Include="UILib\fontclass.h" />
     <ClInclude Include="UILib\FrontLable.h" />
     <ClInclude Include="UILib\TextureView.h" />
     <ClInclude Include="UILib\UIdefind.h" />
     <ClInclude Include="UILib\UiObject.h" />
     <ClInclude Include="UILib\UISystem.h" />
+    <ClInclude Include="Util\CpuUseage.h" />
+    <ClInclude Include="Util\FpsClass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\shader\color.ps" />

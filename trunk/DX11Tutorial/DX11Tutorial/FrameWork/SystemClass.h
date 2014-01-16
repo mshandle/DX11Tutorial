@@ -9,6 +9,8 @@
 #include "input/inputclass.h"
 #include "render/d3dclass.h"
 
+class FpsClass;
+class CpuUseage;
 
 class SystemClass:public InputHandler
 {
@@ -18,21 +20,32 @@ private:
 	~SystemClass();
 public:
 	static SystemClass& Instance();
-	bool Initialize();
-	void Shutdown();
-	void Run();
-	
-	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
-	
-	D3DClass* renderModul();
-	
-	HWND*	HWnd();
+	bool				Initialize();
 
-	void WarningDialog(WCHAR* tile, WCHAR* Msg); 
+	void				Shutdown();
+
+	void				Run();
+	
+	LRESULT CALLBACK	MessageHandler(HWND, UINT, WPARAM, LPARAM);
+	
+	D3DClass*			renderModul();
+	
+	HWND*				HWnd();
+
+	void				WarningDialog(WCHAR* tile, WCHAR* Msg); 
+
+					
+
+	FpsClass*			FPS();
+
+	CpuUseage*			CPU();
 private:
 	void calculateFrameTime();
+	
 	bool Frame();
+	
 	void InitializeWindows(int&, int&);
+	
 	void ShutdownWindows();
 	 
 	
@@ -45,6 +58,10 @@ private:
 	uint64 lastTime_;
 	float dTime_;
 	float fps_;
+
+	FpsClass*	pFpsClass;
+
+	CpuUseage*	pCpuClass;
 };
 
 

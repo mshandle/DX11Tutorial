@@ -6,32 +6,10 @@
 
 EVAUI::FrontLable::FrontLable( std::string& lable,const Vector2& postion,Vector4& color /*= Vector4(1.0,1.0,1.0,1.0)*/ )
 {
+
 	bool bResult = true;
-	unsigned int nLenght = lable.size();
-	m_strMsg = lable;
-	XYZUV* vertices = NULL;
-	unsigned long* indices = NULL;
-
-	m_pIndexBuffer =new D3DIndexBuffer();
-	indices = new unsigned long[nLenght * 6];
-	for(unsigned int index = 0; index < nLenght *6; index++)
-	{
-		indices[index] = index;
-	}
-	if(m_pIndexBuffer->init(sizeof(unsigned long) * nLenght * 6, (void*)indices))
-	{
-		bResult = true;
-		SAFE_DELETE(indices);
-	}
-
-	vertices = new XYZUV[nLenght * 6];
-	m_pVertexBuffer = new D3DVertexBuffer();
-	UISystem::instance().FontEngine()->BuildVertexArray((void*)vertices, lable.c_str(), postion.x, postion.y);
-	if(m_pVertexBuffer->init(sizeof(XYZUV) * nLenght * 6, (void*)vertices, sizeof(XYZUV),D3D11_USAGE_DYNAMIC))
-	{
-		SAFE_DELETE(vertices);
-		bResult = true;
-	}
+	bResult = buildFront(lable, postion);
+	m_position = postion;
 
 }
 
@@ -71,4 +49,45 @@ void EVAUI::FrontLable::update( float det )
 {
 
 	UIObject::update(det);
+}
+
+bool EVAUI::FrontLable::buildFront( std::string &lable,const Vector2 &postion )
+{
+	bool bResult = true;
+	unsigned int nLenght = lable.size();
+	m_strMsg = lable;
+	XYZUV* vertices = NULL;
+	unsigned long* indices = NULL;
+
+	m_pIndexBuffer =new D3DIndexBuffer();
+	indices = new unsigned long[nLenght * 6];
+	for(unsigned int index = 0; index < nLenght *6; index++)
+	{
+		indices[index] = index;
+	}
+	if(m_pIndexBuffer->init(sizeof(unsigned long) * nLenght * 6, (void*)indices))
+	{
+		bResult = true;
+		SAFE_DELETE(indices);
+	}
+
+	vertices = new XYZUV[nLenght * 6];
+	m_pVertexBuffer = new D3DVertexBuffer();
+	UISystem::instance().FontEngine()->BuildVertexArray((void*)vertices, lable.c_str(), postion.x, postion.y);
+	if(m_pVertexBuffer->init(sizeof(XYZUV) * nLenght * 6, (void*)vertices, sizeof(XYZUV),D3D11_USAGE_DYNAMIC))
+	{
+		SAFE_DELETE(vertices);
+		bResult = true;
+	}	
+	return bResult;
+}
+
+void EVAUI::FrontLable::setString( std::string& lable )
+{
+	SAFE_DELETE(m_pIndexBuffer);
+	SAFE_DELETE(m_pVertexBuffer);
+
+	buildFront(lable, m_position);
+
+	m_strMsg = lable;
 }
