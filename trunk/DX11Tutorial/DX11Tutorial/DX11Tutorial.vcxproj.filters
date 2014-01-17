@@ -201,6 +201,9 @@
     <ClCompile Include="Util\CpuUseage.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Sample\TerrainSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\EngineBase.h">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="Util\CpuUseage.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\TerrainSample.h">
+      <Filter>Sample</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

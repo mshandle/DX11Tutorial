@@ -38,6 +38,7 @@ void CBufferManager::InitConstanceMap()
 	insert("WorldViewProject", new WorldViewProject());
 	insert("LightData", new Light());
 	insert("UIWorldViewProject", new UIWorldViewPorject());
+	insert("TerrainLightData",new TerrainLightData());
 }
 
 int WorldViewProject::size()
@@ -118,5 +119,32 @@ bool UIWorldViewPorject::InitBuffer( void** buffer )
 	data->world = world;
 	data->view =view;
 	data->project = project;
+	return true;
+}
+
+TerrainLightData::TerrainLightData()
+{
+
+}
+
+TerrainLightData::~TerrainLightData()
+{
+
+}
+
+int TerrainLightData::size()
+{
+	return sizeof(LightBuffer);
+}
+
+bool TerrainLightData::InitBuffer( void** buffer )
+{
+	LightBuffer* data = (LightBuffer*)(*buffer);
+
+	data->ambientColor = Vector4(0.2f,0.2f,0.2f, 1.0f);
+	data->diffuseColor = Vector4(0.5f,0.5f,0.5f,1.0f);
+	data->lightDirection = Vector3(-1.0f,-1.0f,-0.5f);
+	data->padding = 0.5f;
+
 	return true;
 }

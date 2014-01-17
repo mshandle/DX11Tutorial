@@ -23,6 +23,7 @@ D3DClass::D3DClass()
 
 D3DClass::D3DClass(const D3DClass& other)
 {
+	//m_device->ren
 }
 
 
@@ -347,7 +348,8 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	{
 		return false;
 	}
-
+	rasterDesc.FillMode = D3D11_FILL_WIREFRAME;
+	result = m_device->CreateRasterizerState(&rasterDesc, &m_rasterLineFrameState);
 	// Now set the rasterizer state.
 	m_deviceContext->RSSetState(m_rasterState);
 
@@ -641,4 +643,15 @@ void D3DClass::TurnOffAlphaBlend()
 	m_deviceContext->OMSetBlendState(m_alphaDisableBlendingState, blendFactor, 0xffffffff);
 
 	return;
+}
+
+void D3DClass::TurnOnLineFrame()
+{
+	// Now set the rasterizer state.
+	m_deviceContext->RSSetState(m_rasterLineFrameState);
+}
+
+void D3DClass::TurnOffLineFrame()
+{
+	m_deviceContext->RSSetState(m_rasterState);
 }

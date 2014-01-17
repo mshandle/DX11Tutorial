@@ -107,6 +107,7 @@ void TextureSample::update( float det )
 
 bool TextureSample::render()
 {
+
 	unsigned int stride;
 	unsigned int offset;
 	// Set vertex buffer stride and offset.
@@ -127,6 +128,5 @@ bool TextureSample::render()
 	D3DXMATRIX world;
 	D3DXMatrixIdentity(&world);
 	m_pshader->Render(deviceContext,m_indexCount,world,IMath::MATRIX4X4TODX(ClientCamera::instance().GetViewMatrix()), IMath::MATRIX4X4TODX(SystemClass::Instance().renderModul()->GetProjectionMatrix()),m_ptexture->GetShaderResource() );
-
 	return true;
 }

@@ -63,6 +63,10 @@ public:
 
 	void TurnOffAlphaBlend();
 
+	void TurnOnLineFrame();
+
+	void TurnOffLineFrame();
+
 	ID3D11DepthStencilView*	GetDepthStencilView();
 
 	void					setRenderToBackBuffer();
@@ -84,6 +88,7 @@ private:
 	ID3D11DepthStencilState*	m_disableDepthStencilState;
 	ID3D11DepthStencilView*		m_depthStencilView;
 	ID3D11RasterizerState*		m_rasterState;
+	ID3D11RasterizerState*		m_rasterLineFrameState;
 
 	ID3D11SamplerState*			m_sampleState;
 
