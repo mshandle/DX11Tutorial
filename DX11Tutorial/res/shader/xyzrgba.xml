@@ -1,0 +1,74 @@
+<Shader>
+	<PSShader>
+		<ShaderCode>
+			<![CDATA[
+/*
+* File color.ps for sample bufferandshader;
+*/
+
+struct PixelInputType
+{
+ 		float4 position : SV_POSITION;
+    float4 color:COLOR;
+};
+
+Texture2D shaderTexture;
+SamplerState SampleType;
+
+float4 main(PixelInputType input) : SV_TARGET
+{
+    return (input.color);
+}
+]]>
+		</ShaderCode>
+	</PSShader>
+	<VSShader>
+		
+		<CBuffer>
+			WorldViewProject
+		</CBuffer>
+		
+		<InputType>
+			<Element name="POSITION" value="FLOAT3"/>
+			<Element name="COLOR" value="FLOAT4"/>
+		</InputType>
+		<ShaderCode>
+			<![CDATA[
+/*
+* File color.vs for sample bufferandshader;
+*/
+
+cbuffer MatrixBuffer
+{
+	matrix worldMatrix;
+	matrix viewMatrix;
+	matrix projectionMatrix;
+};
+//Input Type and OutPutType
+
+struct VertexInputType
+{
+	float3 position:POSITION;
+	float4 color:COLOR;
+};
+
+struct PixelInputType
+{
+    float4 position : SV_POSITION;
+    float4 color:COLOR;
+};
+
+PixelInputType main(VertexInputType input)
+{
+	PixelInputType output;
+
+	output.position = mul(float4(input.position,1.0), worldMatrix);//translate world
+	output.position = mul(output.position, viewMatrix);//translate view
+	output.position = mul(output.position, projectionMatrix);//translate projection
+	
+	output.color = input.color;
+	return output;
+}]]>
+		</ShaderCode>
+	</VSShader>
+</Shader>
