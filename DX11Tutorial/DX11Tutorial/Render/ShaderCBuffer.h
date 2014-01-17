@@ -90,3 +90,29 @@ public:
 	virtual bool InitBuffer(void** buffer);
 
 };
+
+class TerrainLightData: public ShaderCBuffer
+{
+public:
+
+	struct LightBuffer
+	{
+		Vector4 ambientColor;
+		Vector4 diffuseColor;
+		Vector3 lightDirection;
+		float padding;
+	};
+
+public:
+
+	TerrainLightData();
+
+	~TerrainLightData();
+
+public:
+
+	virtual int size();
+
+	virtual bool InitBuffer(void** buffer);
+
+};

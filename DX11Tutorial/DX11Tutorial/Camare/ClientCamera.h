@@ -18,6 +18,8 @@ public:
 	Vector3 GetPosition();
 	Vector3 GetRotation();
 
+	Vector3	Direction(){return dir;}
+
 	void update(float det);
 
 	Matrix4x4 GetViewMatrix();
@@ -29,4 +31,6 @@ private:
 	float m_rotationX, m_rotationY, m_rotationZ;
 	Matrix4x4 m_viewMatrix;
 	Matrix4x4 m_UiViewMatirx;
+
+	Vector3	  dir;
 };

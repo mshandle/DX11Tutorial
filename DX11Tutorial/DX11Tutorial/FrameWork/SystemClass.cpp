@@ -21,7 +21,7 @@ GUI_Task	GUI_Task::instance;
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
-const float SCREEN_DEPTH = 1000.0f;
+const float SCREEN_DEPTH = 5000.0f;
 const float SCREEN_NEAR = 0.1f;
 
 SystemClass::SystemClass():
@@ -159,7 +159,14 @@ bool SystemClass::Frame()
 	{
 		return false;
 	}
-
+	if(InputDevice::Instance()->IsKeyDown(VK_F1))
+	{
+		SystemClass::Instance().renderModul()->TurnOnLineFrame();
+	}
+	if(InputDevice::Instance()->IsKeyDown(VK_F2))
+	{
+		SystemClass::Instance().renderModul()->TurnOffLineFrame();
+	}
 	calculateFrameTime();
 
 	MainTaskManager::Instance().update(dTime_);
