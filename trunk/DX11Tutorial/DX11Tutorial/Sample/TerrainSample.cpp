@@ -33,7 +33,7 @@ bool TerrainSample::init()
 	pBlock = new TerrainBaseBlock();
 	pBlock->init("../res/texture/heightmap01.bmp");
 
-	ClientCamera::instance().SetPosition(50.0f, 10.0f, -400.0f);
+	ClientCamera::instance().SetPosition(100.0f, 50.0f, -400.0f);
 
 	return true;
 }

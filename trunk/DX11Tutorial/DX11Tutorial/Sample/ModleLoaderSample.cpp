@@ -20,7 +20,7 @@ bool ModleLoaderSample::init()
 {
 	bool result = true;
 	//ClientCamera::instance().SetPosition(0.0f, 0.0f, -1.0f);
-	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/aka_m00_wp.obj");
+	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/yadianna.obj");
 	
 	if(NULL == m_pModel)
 		return false;
@@ -32,11 +32,11 @@ bool ModleLoaderSample::init()
 	m_pTexturel = new Texture();
 	if(m_pTexturel)
 	{
-		result = m_pTexturel->initWithFile(L"../res/texture/aka_t00_wp.dds");
+		result = m_pTexturel->initWithFile(L"../res/texture/db_doty_shatu003.dds");
 	}
 
 	
-	ClientCamera::instance().SetPosition(0.0f, 10.0f, -100.0f);
+	ClientCamera::instance().SetPosition(0.0f, 100, -600.0f);
 	Matrix4x4 translate;
 
 	IMath::BuildIdentityMatrix(translate);
@@ -46,13 +46,13 @@ bool ModleLoaderSample::init()
 	Matrix4x4 translateY;
 
 	IMath::BuildRotateMatrixZ(translateZ, 3.1415926f * 0.5f);
-	IMath::BuildRotateMatrixY(translateY, 3.1415926f * 0.5f);
+	IMath::BuildRotateMatrixY(translateY, 0.5);
 
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
 
-	worldMat *= translateZ;
-	worldMat *= translateY;
-	worldMat *= translate;
+	//worldMat *= translateZ;
+	//worldMat *= translateY;
+	//worldMat *= translate;
 
 	pTextureView= new TextureView();
 	pTextureView->position(EVAUI::UISystem::instance().TopLeft());
