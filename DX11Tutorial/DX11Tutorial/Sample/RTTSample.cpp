@@ -12,7 +12,7 @@ bool RTTSample::init()
 	EVAUI::UISystem::instance().Root()->addchild(pLable);
 
 	bool result = true;
-	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/sphere.obj");
+	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/yadianna.obj");
 
 	if(NULL == m_pModel)
 		return false;
@@ -28,7 +28,7 @@ bool RTTSample::init()
 	}
 
 
-	ClientCamera::instance().SetPosition(0.0f, 10.0f, -400.0f);
+	ClientCamera::instance().SetPosition(0.0f, 100.0f, -600.0f);
 	Matrix4x4 translate;
 
 	IMath::BuildIdentityMatrix(translate);
@@ -40,11 +40,6 @@ bool RTTSample::init()
 	IMath::BuildRotateMatrixZ(translateZ, 3.1415926f * 0.5f);
 	IMath::BuildRotateMatrixY(translateY, 3.1415926f * 0.5f);
 
-	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
-
-	//worldMat *= translateZ;
-	//worldMat *= translateY;
-	//worldMat *= translate;
 
 	EVAUI::TextureView* pBackGround = new EVAUI::TextureView();
 	result = pBackGround->initTextureFile(L"../res/texture/bg.png",SystemClass::Instance().renderModul()->ViewWidth()/4.0f, SystemClass::Instance().renderModul()->ViewHeight()/4.0f);
@@ -72,7 +67,7 @@ void RTTSample::update( float det )
 {
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
 	Matrix4x4 rotateY;
-	IMath::BuildRotateMatrixX(rotateY, det);
+	IMath::BuildRotateMatrixY(rotateY, det);
 	worldMat *= rotateY;
 }
 
@@ -83,7 +78,7 @@ bool RTTSample::render()
 	ID3D11RenderTargetView* pRenderTagerView = m_pRenderTarget->GetRenderTarget();
 
 	deviceContext->OMSetRenderTargets(1,&pRenderTagerView,pDepthStencilView);
-
+	SystemClass::Instance().renderModul()->TurnOnDepth();
 	Vector4 color(0.0f,0.0f,0.0f,0.0f);
 	deviceContext->ClearRenderTargetView(pRenderTagerView, (float*)&color);
 

@@ -58,7 +58,7 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile)
 		{
 			float tmpx,tmpy,tmpz;
 			sscanf(line.c_str(),"v %f %f %f",&tmpx,&tmpy,&tmpz);       //read the 3 floats, which makes up the vertex
-			vPosition.push_back(D3DXVECTOR3(tmpx, tmpy, tmpz * -1.0f));//translate left hand to right hand
+			vPosition.push_back(D3DXVECTOR3(tmpx, tmpy, tmpz ));//translate left hand to right hand
 			verNum++;
 		}
 
@@ -66,13 +66,13 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile)
 		{
 			float fTmpU,fTmpV;
 			sscanf(line.c_str(),"vt %f %f",&fTmpU,&fTmpV);
-			vVU.push_back(D3DXVECTOR2(fTmpU,1.0f - fTmpV));//translate left hand to right hand
+			vVU.push_back(D3DXVECTOR2(fTmpU,fTmpV));//translate left hand to right hand
 		}
 		else if(line[0] =='v' && line[1] == 'n')//vn normal
 		{
 			float fTmpX,fTmpY,fTmpZ;
 			sscanf(line.c_str(),"vn %f %f %f",&fTmpX,&fTmpY, &fTmpZ);
-			vNormal.push_back(D3DXVECTOR3(fTmpX, fTmpY,fTmpZ * -1.0f));//translate left hand to right hand
+			vNormal.push_back(D3DXVECTOR3(fTmpX, fTmpY,fTmpZ));//translate left hand to right hand
 		}
 		else if(line[0] == 'f')
 		{
