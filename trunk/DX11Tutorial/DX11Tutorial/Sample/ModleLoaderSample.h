@@ -24,7 +24,7 @@ public:
 
 private:
 	
-	Model* m_pModel;
+	std::vector<Model*> m_pModel;
 
 	Effect* m_peffect;
 

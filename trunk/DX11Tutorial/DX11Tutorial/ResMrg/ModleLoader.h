@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "render/D3DVertexBuffer.h"
 #include "render/D3DIndexBuffer.h"
 #include "Render/Model/model.h"
@@ -27,5 +28,5 @@ public:
 public:
 	static ModleLoader& Instance();
 
-	Model* loaderModel(WCHAR* _modlefile);
+	Model* loaderModel(const std::string& _modlefile);
 };

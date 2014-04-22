@@ -20,12 +20,12 @@ ModleLoader& ModleLoader::Instance()
 	return instance;
 }
 
-Model* ModleLoader::loaderModel( WCHAR* _modlefile)
+Model* ModleLoader::loaderModel(const std::string& _modlefile)
 {
 	std::ifstream file(_modlefile);     //open the model file
 	if(!file.is_open())
 	{
-		SystemClass::Instance().WarningDialog(_modlefile,L"No find File!");
+		//SystemClass::Instance().WarningDialog(_modlefile.c_str(),L"No find File!");
 		return false;
 	}
 	std::vector<D3DXVECTOR3> vPosition;
@@ -58,7 +58,7 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile)
 		{
 			float tmpx,tmpy,tmpz;
 			sscanf(line.c_str(),"v %f %f %f",&tmpx,&tmpy,&tmpz);       //read the 3 floats, which makes up the vertex
-			vPosition.push_back(D3DXVECTOR3(tmpx, tmpy, tmpz ));//translate left hand to right hand
+			vPosition.push_back(D3DXVECTOR3(tmpx,tmpy,tmpz*-1.0));//translate left hand to right hand
 			verNum++;
 		}
 
@@ -66,22 +66,22 @@ Model* ModleLoader::loaderModel( WCHAR* _modlefile)
 		{
 			float fTmpU,fTmpV;
 			sscanf(line.c_str(),"vt %f %f",&fTmpU,&fTmpV);
-			vVU.push_back(D3DXVECTOR2(fTmpU,fTmpV));//translate left hand to right hand
+			vVU.push_back(D3DXVECTOR2(fTmpU,1.0 - fTmpV));//translate left hand to right hand
 		}
 		else if(line[0] =='v' && line[1] == 'n')//vn normal
 		{
 			float fTmpX,fTmpY,fTmpZ;
 			sscanf(line.c_str(),"vn %f %f %f",&fTmpX,&fTmpY, &fTmpZ);
-			vNormal.push_back(D3DXVECTOR3(fTmpX, fTmpY,fTmpZ));//translate left hand to right hand
+			vNormal.push_back(D3DXVECTOR3(fTmpX, fTmpY,fTmpZ*-1.0f));//translate left hand to right hand
 		}
 		else if(line[0] == 'f')
 		{
 			
 			FaceType value_;
 			//f 1/1 2/2 3/3
-			//sscanf(line.c_str(),"f %d/%d %d/%d %d/%d", &value_.vIndex1,&value_.tIndex1, &value_.vIndex2, &value_.tIndex2, &value_.vIndex3, &value_.tIndex3);
+			sscanf(line.c_str(),"f %d/%d %d/%d %d/%d", &value_.vIndex1,&value_.tIndex1, &value_.vIndex2, &value_.tIndex2, &value_.vIndex3, &value_.tIndex3);
 			//f 1/1/1 2/2/2 3/3/3
-			sscanf(line.c_str(),"f %d/%d/%d %d/%d/%d %d/%d/%d", &value_.vIndex1,&value_.tIndex1,&value_.nIndex1, &value_.vIndex2, &value_.tIndex2,&value_.nIndex2, &value_.vIndex3, &value_.tIndex3,&value_.nIndex3);
+			//sscanf(line.c_str(),"f %d/%d/%d %d/%d/%d %d/%d/%d", &value_.vIndex1,&value_.tIndex1,&value_.nIndex1, &value_.vIndex2, &value_.tIndex2,&value_.nIndex2, &value_.vIndex3, &value_.tIndex3,&value_.nIndex3);
 			
 			vIndex.push_back(value_);
 		}

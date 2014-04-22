@@ -123,7 +123,9 @@
     <ClCompile Include="Render\Texture.cpp" />
     <ClCompile Include="Render\Texture2D.cpp" />
     <ClCompile Include="Render\TextureShaderClass.cpp" />
+    <ClCompile Include="ResMrg\ModleFactory.cpp" />
     <ClCompile Include="ResMrg\ModleLoader.cpp" />
+    <ClCompile Include="ResMrg\ModleLoader3ds.cpp" />
     <ClCompile Include="Sample\BufferAndShaderSample.cpp" />
     <ClCompile Include="Sample\FrontTestSample.cpp" />
     <ClCompile Include="Sample\ModleLoaderSample.cpp" />
@@ -175,7 +177,9 @@
     <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Render\Texture2D.h" />
     <ClInclude Include="Render\TextureShaderClass.h" />
+    <ClInclude Include="ResMrg\ModleFactory.h" />
     <ClInclude Include="ResMrg\ModleLoader.h" />
+    <ClInclude Include="ResMrg\ModleLoader3ds.h" />
     <ClInclude Include="Sample\BufferAndShaderSample.h" />
     <ClInclude Include="Sample\FrontTestSample.h" />
     <ClInclude Include="Sample\ModleLoaderSample.h" />
