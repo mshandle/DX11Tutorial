@@ -33,14 +33,14 @@ SamplerState SampleType;
 
 float4 main(PixelInputType input) : SV_TARGET
 {
-	  float3 L = lightpostion.xyz - input.position.xyz;
+	  float3 L = lightpostion.xyz;
 	  L = normalize(L);
 	  float3 N = input.color;
 	  N = normalize(N);
-	  float det = max(dot(L,N),0);
-	  
+	  float det = saturate(dot(L,N));
+	  float4 ambi = float4(0.0f,0.2f,0.0f,1.0f);
 	  float4 textureColor = shaderTexture.Sample(SampleType, input.texcood);
-    return (textureColor + lightColor*det );
+    return (ambi + lightColor*det * 0.5f );
 }
 ]]>
 		</ShaderCode>
@@ -54,7 +54,7 @@ float4 main(PixelInputType input) : SV_TARGET
 		<InputType>
 			<Element name="POSITION" value="FLOAT3"/>
 			<Element name="normal" value="FLOAT3"/>
-			<Element name="TEXCOOD" value="FLOAT2"/>
+			<Element name="texcood" value="FLOAT2"/>
 		</InputType>
 		<ShaderCode>
 			<![CDATA[
@@ -69,44 +69,33 @@ cbuffer MatrixBuffer
 	matrix projectionMatrix;
 };
 
-cbuffer LightConst
-{
-	float4 LightColor;
-};
-
-
 //Input Type and OutPutType
 
 struct VertexInputType
 {
 	float3 position:POSITION;
-	float3 color:normal;
-	float2 texcood:TEXCOOD;
+	float3 normal:normal;
+	float2 texcood:texcood;
 };
 
 struct PixelInputType
 {
     float4 position : SV_POSITION;
-    float3 color : normal;
-    float2 texcood:TEXCOOD;
+    float3 normal : normal;
+    float2 texcood:texcood;
 };
 
 PixelInputType main(VertexInputType input)
 {
 	PixelInputType output;
 	
-	float4 wPoint;
-	wPoint.xyz = input.position;
-	
-	wPoint.w = 1.0;//input position is float3
-	
-	output.position = mul(wPoint, worldMatrix);//translate world
+	output.position = mul(float4(input.position, 1.0f), worldMatrix);//translate world
 	
 	output.position = mul(output.position, viewMatrix);//translate view
 	
 	output.position = mul(output.position, projectionMatrix);//translate projection
 	
-	output.color = input.color;
+	output.normal = mul(float4(input.normal,1.0),worldMatrix).xyz;
 	output.texcood = input.texcood;
 	return output;
 }]]>

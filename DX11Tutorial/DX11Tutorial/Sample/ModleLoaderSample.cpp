@@ -21,7 +21,7 @@ bool ModleLoaderSample::init()
 {
 	bool result = true;
 
-	m_pModel = ModleFactory::loadModleFile("../res/modle/aka_m00_wp.3DS");
+	m_pModel = ModleFactory::loadModleFile("../res/modle/two.3DS");
 	if(m_pModel.empty())
 		return false;
 
@@ -36,26 +36,16 @@ bool ModleLoaderSample::init()
 	}
 
 	
-	ClientCamera::instance().SetPosition(0.0f, 10, -50.0f);
-	Matrix4x4 translate;
-
-	IMath::BuildIdentityMatrix(translate);
-	translate.Translate(0.0f,10.f, 0.f);
+	ClientCamera::instance().SetPosition(0.0f, 0.0f, -500.0f);
+	//ClientCamera::instance().SetRotation(0.0f,0.0,30.0);
 	
-	Matrix4x4 translateZ;
-	Matrix4x4 translateY;
-	Matrix4x4 translateX;
-	IMath::BuildRotateMatrixZ(translateZ, 3.1415926f * 0.5f);
-	IMath::BuildRotateMatrixX(translateX, 3.1415926f * 1.0f);
-	IMath::BuildRotateMatrixY(translateY, 3.1415926f * 0.5f);
-
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
-
-	worldMat *= translateZ;
-	worldMat *= translateY;
-	worldMat *= translateX;
-	//worldMat *= translate;
-
+	Matrix4x4 rotateZ;
+	Matrix4x4 rotateX;
+	IMath::BuildRotateMatrixY(rotateZ, 3.141592657 * 0.25);
+	IMath::BuildRotateMatrixX(rotateX, 3.141592657*0.25);
+	//worldMat*=rotateZ;
+	//worldMat*=rotateX;
 	pTextureView= new TextureView();
 	pTextureView->position(EVAUI::UISystem::instance().TopLeft());
 	if(!pTextureView->initTextureFile(L"../res/texture/bg2.png",100,768))
@@ -85,11 +75,11 @@ bool ModleLoaderSample::render()
 	m_peffect->setTexture("diffuse", m_pTexturel->GetShaderResource());
 	bool  result = m_peffect->commit();
 	
-	/*for(std::vector<Model*>::iterator It = m_pModel.begin(); It != m_pModel.end(); It++)
+	for(std::vector<Model*>::iterator It = m_pModel.begin(); It != m_pModel.end(); It++)
 	{
 		(*It)->draw(IMath::MAT4X4_IDENTITY);
-	}*/
-	m_pModel[0]->draw(IMath::MAT4X4_IDENTITY);
+	}
+	//m_pModel[0]->draw(IMath::MAT4X4_IDENTITY);
 	return true;
 }
 
