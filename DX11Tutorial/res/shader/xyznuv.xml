@@ -23,7 +23,7 @@ cbuffer LightData
 
 struct PixelInputType
 {
-    float4 wposition:POSITION1l;
+    float4 position : SV_POSITION;
     float3 color : normal;
     float2 texcood:TEXCOOD;
 };
@@ -33,14 +33,14 @@ SamplerState SampleType;
 
 float4 main(PixelInputType input) : SV_TARGET
 {
-	  float3 L = lightpostion.xyz - input.wposition.xyz;
+	  float3 L = lightpostion.xyz - input.position.xyz;
 	  L = normalize(L);
 	  float3 N = input.color;
 	  N = normalize(N);
 	  float det = max(dot(L,N),0);
-	  float4 diffuse = float4(0.21,0.35,1.0,1.0);
+	  
 	  float4 textureColor = shaderTexture.Sample(SampleType, input.texcood);
-    return (0.5 * diffuse+ 0.5 * lightColor*det );
+    return (textureColor + lightColor*det );
 }
 ]]>
 		</ShaderCode>
@@ -80,15 +80,14 @@ cbuffer LightConst
 struct VertexInputType
 {
 	float3 position:POSITION;
-	float3 normal:normal;
+	float3 color:normal;
 	float2 texcood:TEXCOOD;
 };
 
 struct PixelInputType
 {
     float4 position : SV_POSITION;
-    float4 wposition:POSITION1l;
-    float3 normal : normal;
+    float3 color : normal;
     float2 texcood:TEXCOOD;
 };
 
@@ -107,9 +106,7 @@ PixelInputType main(VertexInputType input)
 	
 	output.position = mul(output.position, projectionMatrix);//translate projection
 	
-	output.normal = mul(input.normal, worldMatrix);
-	output.wposition = mul(wPoint, worldMatrix);//translate world
-
+	output.color = input.color;
 	output.texcood = input.texcood;
 	return output;
 }]]>
