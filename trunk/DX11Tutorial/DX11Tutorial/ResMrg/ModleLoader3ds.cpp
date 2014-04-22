@@ -38,6 +38,7 @@ me interested in all this.
 #include "ModleLoader3ds.h"
 #include <stdlib.h>
 #include <string.h>
+#include "..\math\Vector3.h"
 
 
 // Global instance of loader
@@ -382,9 +383,9 @@ int Load3ds::FillIndexBuffer(Chunk * aPreviousChunk)
 	int nDataIndex = 0;
 	for(int nface = 0; nface < lNumFaces; nface++)
 	{
-		curObjData.indexData[nface * 3] = indexData[nDataIndex++];
-		curObjData.indexData[nface * 3+1] = indexData[nDataIndex++];
 		curObjData.indexData[nface * 3+2] = indexData[nDataIndex++];
+		curObjData.indexData[nface * 3+1] = indexData[nDataIndex++];
+		curObjData.indexData[nface * 3] = indexData[nDataIndex++];
 		//curObjData.indexData[lNumFaces * 3] = indexData[nDataIndex++];
 		nDataIndex++;
 		//four is flag 
@@ -453,6 +454,7 @@ int Load3ds::FillVertexBuffer(Chunk * aPreviousChunk)
 		curObjData.verData[nIndex].position.z = VerData[nDataIndex++];
 		curObjData.verData[nIndex].position.y = VerData[nDataIndex++];
 		
+		
 	}
 	
 	//end code
@@ -487,7 +489,46 @@ the case. If this is done, then small triangles have just as much influence on t
 final normal as larger triangles. My way, the model comes out looking much more 
 smooth, especially if there's small flaws in the model. 
 */
+	//计算所以三角面的法向量
+	D3DXVECTOR3* facenormal = new D3DXVECTOR3[curObjData.IndexCount /3];
+	for(int nIndex = 0; nIndex < curObjData.IndexCount / 3; nIndex++)//face count
+	{
+		D3DXVECTOR3 position1 = curObjData.verData[curObjData.indexData[nIndex * 3]].position;
+		D3DXVECTOR3 position2 = curObjData.verData[curObjData.indexData[nIndex * 3 + 1]].position;
+		D3DXVECTOR3 position3 = curObjData.verData[curObjData.indexData[nIndex * 3 + 2]].position;
 
+		D3DXVECTOR3 vec1 = position1 - position3;
+		D3DXVECTOR3 vec2 = position3 - position2;
+		D3DXVECTOR3 normal;
+		D3DXVec3Cross(&normal, &vec1, &vec2);
+		//D3DXVec3Normalize(&normal,&normal);
+		facenormal[nIndex] =normal;
+	
+	}
+	//判断每个顶点跟几个三角形共享，
+	D3DXVECTOR3 sum(0.0f,0.0f,0.0f);
+	int shard = 0;
+	for(int nVerIndex = 0; nVerIndex < curObjData.VerCount; nVerIndex++)
+	{
+		
+		for(int nFaceIndex = 0; nFaceIndex < curObjData.IndexCount / 3; nFaceIndex++)
+		{
+			if((curObjData.indexData[nFaceIndex * 3]== nVerIndex)||
+				(curObjData.indexData[nFaceIndex * 3+1]== nVerIndex)||
+				(curObjData.indexData[nFaceIndex * 3+1]== nVerIndex))
+			{
+				sum +=facenormal[nFaceIndex]; 
+				shard++;
+			}
+		}
+
+		sum /=3;
+		D3DXVec3Normalize(&sum, &sum);
+		curObjData.verData[nVerIndex].normal = sum;
+
+		shard = 0;
+		sum= D3DXVECTOR3(0.0f,0.0f,0.0f);
+	}
 	return 1;
 }
 

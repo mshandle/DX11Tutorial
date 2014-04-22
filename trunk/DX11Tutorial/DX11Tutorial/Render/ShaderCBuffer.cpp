@@ -85,15 +85,15 @@ bool Light::InitBuffer( void** buffer )
 	LightData* data = (LightData*)(*buffer);
 
 	data->lightColor.x = 1.0f;
-	data->lightColor.y = 1.0f;
-	data->lightColor.z = 1.0f;
+	data->lightColor.y = 0.0f;
+	data->lightColor.z = 0.0f;
 	data->lightColor.w = 1.0f;
 
-	data->lightPostion.x = 1;
+	data->lightPostion.x = -100;
 
-	data->lightPostion.y = 0;
+	data->lightPostion.y = -100;
 
-	data->lightPostion.z = 0;
+	data->lightPostion.z = 100;
 
 	data->lightPostion.w = 1;
 	return true;
