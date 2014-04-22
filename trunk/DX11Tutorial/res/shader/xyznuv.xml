@@ -38,9 +38,9 @@ float4 main(PixelInputType input) : SV_TARGET
 	  float3 N = input.color;
 	  N = normalize(N);
 	  float det = saturate(dot(L,N));
-	  float4 ambi = float4(0.0f,0.2f,0.0f,1.0f);
+	  float4 ambi = float4(0.21f,0.35f,1.0f,1.0f);
 	  float4 textureColor = shaderTexture.Sample(SampleType, input.texcood);
-    return (ambi + lightColor*det * 0.5f );
+    return (ambi * 0.3f + lightColor*det * 0.5f );
 }
 ]]>
 		</ShaderCode>

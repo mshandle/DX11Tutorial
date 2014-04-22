@@ -13,7 +13,7 @@ bool RTTSample::init()
 	EVAUI::UISystem::instance().Root()->addchild(pLable);
 
 	bool result = true;
-	m_pModel = ModleFactory::loadModleFile("../res/modle/yadianna.obj");
+	m_pModel = ModleFactory::loadModleFile("../res/modle/two.3ds");
 
 	if(m_pModel.empty())
 		return false;
@@ -29,7 +29,7 @@ bool RTTSample::init()
 	}
 
 
-	ClientCamera::instance().SetPosition(0.0f, 100.0f, -600.0f);
+	ClientCamera::instance().SetPosition(0.0f, 50.0f, -300.0f);
 	Matrix4x4 translate;
 
 	IMath::BuildIdentityMatrix(translate);
@@ -88,12 +88,18 @@ bool RTTSample::render()
 
 	m_peffect->setTexture("diffuse", m_pTexturel->GetShaderResource());
 	bool  result = m_peffect->commit();
-	m_pModel[0]->draw(IMath::MAT4X4_IDENTITY);
+	for(std::vector<Model*>::iterator It = m_pModel.begin(); It != m_pModel.end(); It++)
+	{
+		(*It)->draw(IMath::MAT4X4_IDENTITY);
+	}
 
 	SystemClass::Instance().renderModul()->setRenderToBackBuffer();
 
 	deviceContext->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	m_pModel[0]->draw(IMath::MAT4X4_IDENTITY);
+	for(std::vector<Model*>::iterator It = m_pModel.begin(); It != m_pModel.end(); It++)
+	{
+		(*It)->draw(IMath::MAT4X4_IDENTITY);
+	}
 
 	DedugWindow->setTexture(m_pRenderTarget);
 
