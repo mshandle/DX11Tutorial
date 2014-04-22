@@ -43,7 +43,7 @@ void Model::draw( Matrix4x4 world )
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	
-	unsigned int nIndexCount =TrisNum() * 3;
+	unsigned int nIndexCount = TrisNum() * 3;
 
 	deviceContext->DrawIndexed(nIndexCount, 0, 0);
 }

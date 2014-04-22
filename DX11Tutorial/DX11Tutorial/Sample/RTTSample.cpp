@@ -5,6 +5,7 @@
 #include "..\FrameWork\SystemClass.h"
 #include "..\ResMrg\ModleLoader.h"
 #include "..\UILib\TextureView.h"
+#include "..\ResMrg\ModleFactory.h"
 
 bool RTTSample::init()
 {
@@ -12,9 +13,9 @@ bool RTTSample::init()
 	EVAUI::UISystem::instance().Root()->addchild(pLable);
 
 	bool result = true;
-	m_pModel = ModleLoader::Instance().loaderModel(L"../res/modle/yadianna.obj");
+	m_pModel = ModleFactory::loadModleFile("../res/modle/yadianna.obj");
 
-	if(NULL == m_pModel)
+	if(m_pModel.empty())
 		return false;
 
 	m_peffect = new Effect();
@@ -87,12 +88,12 @@ bool RTTSample::render()
 
 	m_peffect->setTexture("diffuse", m_pTexturel->GetShaderResource());
 	bool  result = m_peffect->commit();
-	m_pModel->draw(IMath::MAT4X4_IDENTITY);
+	m_pModel[0]->draw(IMath::MAT4X4_IDENTITY);
 
 	SystemClass::Instance().renderModul()->setRenderToBackBuffer();
 
 	deviceContext->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	m_pModel->draw(IMath::MAT4X4_IDENTITY);
+	m_pModel[0]->draw(IMath::MAT4X4_IDENTITY);
 
 	DedugWindow->setTexture(m_pRenderTarget);
 
