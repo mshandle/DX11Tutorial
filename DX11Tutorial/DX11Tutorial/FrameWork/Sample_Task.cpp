@@ -20,7 +20,7 @@ Sample_Task::~Sample_Task(void)
 
 bool Sample_Task::init()
 {
-	m_psample = new ModleLoaderSample();
+	m_psample = new RTTSample();
 	if(NULL != m_psample)
 		return m_psample->init();
 	return false;

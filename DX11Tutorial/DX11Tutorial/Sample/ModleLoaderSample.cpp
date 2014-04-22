@@ -36,7 +36,7 @@ bool ModleLoaderSample::init()
 	}
 
 	
-	ClientCamera::instance().SetPosition(0.0f, 0.0f, -500.0f);
+	ClientCamera::instance().SetPosition(0.0f, 0.0f, -300.0f);
 	//ClientCamera::instance().SetRotation(0.0f,0.0,30.0);
 	
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
