@@ -1,4 +1,4 @@
-#include "RTTSample.h"
+#include "TexProjectSample.h"
 #include "..\UILib\UISystem.h"
 #include "..\UILib\FrontLable.h"
 #include "..\Camare\ClientCamera.h"
@@ -7,7 +7,7 @@
 #include "..\UILib\TextureView.h"
 #include "..\ResMrg\ModleFactory.h"
 
-bool RTTSample::init()
+bool TexProjectSample::init()
 {
 	EVAUI::FrontLable* pLable = new EVAUI::FrontLable(std::string("Render To Texture Sample"), EVAUI::UISystem::instance().TopLeft());
 	EVAUI::UISystem::instance().Root()->addchild(pLable);
@@ -19,17 +19,17 @@ bool RTTSample::init()
 		return false;
 
 	m_peffect = new Effect();
-	result = m_peffect->load("../res/shader/xyznuv.xml");
+	result = m_peffect->load("../res/shader/texprj.xml");
 
 
 	m_pTexturel = new Texture();
 	if(m_pTexturel)
 	{
-		result = m_pTexturel->initWithFile(L"../res/texture/bg.png");
+		result = m_pTexturel->initWithFile(L"../res/texture/db_doty_shatu003.dds");
 	}
 
 
-	ClientCamera::instance().SetPosition(0.0f, 50.0f, -300.0f);
+	ClientCamera::instance().SetPosition(0.0f, 20.0f, -200.0f);
 	Matrix4x4 translate;
 
 	IMath::BuildIdentityMatrix(translate);
@@ -54,25 +54,25 @@ bool RTTSample::init()
 
 
 	m_pRenderTarget = new Texture2D(SystemClass::Instance().renderModul()->GetDevice(),SystemClass::Instance().renderModul()->ViewWidth(), SystemClass::Instance().renderModul()->ViewHeight(),DXGI_FORMAT_R16G16B16A16_FLOAT);
-	
-	
+
+
 	return result;
 }
 
-void RTTSample::fini()
+void TexProjectSample::fini()
 {
 
 }
 
-void RTTSample::update( float det )
+void TexProjectSample::update( float det )
 {
 	Matrix4x4& worldMat = SystemClass::Instance().renderModul()->GetWorldMatrix();
 	Matrix4x4 rotateY;
 	IMath::BuildRotateMatrixY(rotateY, det);
-	worldMat *= rotateY;
+	//worldMat *= rotateY;
 }
 
-bool RTTSample::render()
+bool TexProjectSample::render()
 {
 	ID3D11DeviceContext* deviceContext = SystemClass::Instance().renderModul()->GetDeviceContext();
 	ID3D11DepthStencilView* pDepthStencilView = SystemClass::Instance().renderModul()->GetDepthStencilView();
