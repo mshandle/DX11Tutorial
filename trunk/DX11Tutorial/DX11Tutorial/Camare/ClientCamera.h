@@ -24,6 +24,7 @@ public:
 
 	Matrix4x4 GetViewMatrix();
 
+	void	  SetViewMatrix(const Matrix4x4& mat);
 
 	Matrix4x4 GetUIMatrix();
 private:

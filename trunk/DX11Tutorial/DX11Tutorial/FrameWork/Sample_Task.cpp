@@ -8,6 +8,8 @@
 #include "Sample/FrontTestSample.h"
 #include "Sample/RTTSample.h"
 #include "Sample/TerrainSample.h"
+#include "Sample/TexProjectSample.h"
+#include "Sample/ShadowMapSample.h"
 Sample_Task::Sample_Task(void):m_psample(NULL)
 {
 	MainTaskManager::Instance().add(TASK_SAMPLE, this);
@@ -20,7 +22,7 @@ Sample_Task::~Sample_Task(void)
 
 bool Sample_Task::init()
 {
-	m_psample = new RTTSample();
+	m_psample = new ShadowMapSample();
 	if(NULL != m_psample)
 		return m_psample->init();
 	return false;

@@ -120,26 +120,11 @@
     <ClCompile Include="ResMrg\ModleLoader.cpp">
       <Filter>ResMrg</Filter>
     </ClCompile>
-    <ClCompile Include="Sample\BufferAndShaderSample.cpp">
-      <Filter>Sample</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\ModleLoaderSample.cpp">
-      <Filter>Sample</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\TextureSample.cpp">
-      <Filter>Sample</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\XMLTestSample.cpp">
-      <Filter>Sample</Filter>
-    </ClCompile>
     <ClCompile Include="win\main.cpp">
       <Filter>Win</Filter>
     </ClCompile>
     <ClCompile Include="Render\Model\model.cpp">
       <Filter>Render\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\TextureUITest.cpp">
-      <Filter>Sample</Filter>
     </ClCompile>
     <ClCompile Include="math\Vector2.cpp">
       <Filter>math</Filter>
@@ -180,17 +165,11 @@
     <ClCompile Include="UILib\UISystem.cpp">
       <Filter>UILib</Filter>
     </ClCompile>
-    <ClCompile Include="Sample\FrontTestSample.cpp">
-      <Filter>Sample</Filter>
-    </ClCompile>
     <ClCompile Include="UILib\FrontLable.cpp">
       <Filter>UILib</Filter>
     </ClCompile>
     <ClCompile Include="UILib\fontclass.cpp">
       <Filter>UILib</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\RTTSample.cpp">
-      <Filter>Sample</Filter>
     </ClCompile>
     <ClCompile Include="UILib\DebugView.cpp">
       <Filter>UILib</Filter>
@@ -201,14 +180,41 @@
     <ClCompile Include="Util\CpuUseage.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Sample\TerrainSample.cpp">
-      <Filter>Sample</Filter>
-    </ClCompile>
     <ClCompile Include="ResMrg\ModleFactory.cpp">
       <Filter>ResMrg</Filter>
     </ClCompile>
     <ClCompile Include="ResMrg\ModleLoader3ds.cpp">
       <Filter>ResMrg</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\BufferAndShaderSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\FrontTestSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\ModleLoaderSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\RTTSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\TerrainSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\TexProjectSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\TextureSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\TextureUITest.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\XMLTestSample.cpp">
+      <Filter>Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\ShadowMapSample.cpp">
+      <Filter>Sample</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,26 +281,8 @@
     <ClInclude Include="ResMrg\ModleLoader.h">
       <Filter>ResMrg</Filter>
     </ClInclude>
-    <ClInclude Include="Sample\BufferAndShaderSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\ModleLoaderSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\SampleInterface.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\TextureSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\XMLTestSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
     <ClInclude Include="Render\Model\model.h">
       <Filter>Render\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\TextureUITest.h">
-      <Filter>Sample</Filter>
     </ClInclude>
     <ClInclude Include="math\Vector2.h">
       <Filter>math</Filter>
@@ -344,12 +332,6 @@
     <ClInclude Include="UILib\fontclass.h">
       <Filter>UILib</Filter>
     </ClInclude>
-    <ClInclude Include="Sample\FrontTestSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\RTTSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
     <ClInclude Include="Render\ITexture.h">
       <Filter>Render\Texture</Filter>
     </ClInclude>
@@ -362,14 +344,44 @@
     <ClInclude Include="Util\CpuUseage.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Sample\TerrainSample.h">
-      <Filter>Sample</Filter>
-    </ClInclude>
     <ClInclude Include="ResMrg\ModleFactory.h">
       <Filter>ResMrg</Filter>
     </ClInclude>
     <ClInclude Include="ResMrg\ModleLoader3ds.h">
       <Filter>ResMrg</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\BufferAndShaderSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\FrontTestSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\ModleLoaderSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\RTTSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\SampleInterface.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\TerrainSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\TextureSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\TextureUITest.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\XMLTestSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\ShadowMapSample.h">
+      <Filter>Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\TexProjectSample.h">
+      <Filter>Sample</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
