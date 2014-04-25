@@ -6,9 +6,6 @@
 		<SamplerState>
 			
 		</SamplerState>
-		<Texture>
-			diffuse
-		</Texture>
 		<ShaderCode>
 			<![CDATA[
 /*
@@ -27,11 +24,6 @@ struct PixelInputType
     float2 depth : POSITION;
     float3 normal:normal;
 };
-
-
-Texture2D shaderTexture;
-SamplerState SampleType;
-
 float4 main(PixelInputType input) : SV_TARGET
 {
 	float outValue = (input.depth.x - 0.1)/(5000 - 0.1) +0.05;
