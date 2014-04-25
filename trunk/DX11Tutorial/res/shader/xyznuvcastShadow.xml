@@ -38,9 +38,9 @@ float4 main(PixelInputType input) : SV_TARGET
 		input.shadowUV.xy = input.shadowUV.xy/input.shadowUV.w * 0.5 + float2(0.5,0.5);
 		input.shadowUV.y =  1.0 - input.shadowUV.y;
 		
-		float lightdistance = (input.shadowUV.z - 0.1)/(3000 - 0.1) - 0.0001;
+		float lightdistance = (input.shadowUV.z - 0.1)/(5000 - 0.1) - 0.005;
 		
-		float pixoff = 0.001;
+		float pixoff = 1/1024;
 		
 		float depth = shaderTexture.Sample(SampleType,input.shadowUV.xy).x;//get depth from depth texture range[0,1]; tranlate to [0.1 5000]
 		float roundDepth1 = shaderTexture.Sample(SampleType,input.shadowUV.xy + float2(-pixoff,0));

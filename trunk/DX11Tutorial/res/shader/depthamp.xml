@@ -34,7 +34,7 @@ SamplerState SampleType;
 
 float4 main(PixelInputType input) : SV_TARGET
 {
-	float outValue = (input.depth.x - 0.1)/(3000 - 0.1) +0.0001;
+	float outValue = (input.depth.x - 0.1)/(5000 - 0.1) +0.05;
 	return float4(outValue,outValue,outValue,1.0f);
 }
 ]]>
