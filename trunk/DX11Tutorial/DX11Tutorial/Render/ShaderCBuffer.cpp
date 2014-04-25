@@ -53,14 +53,17 @@ bool WorldViewProject::InitBuffer( void** buffer )
 	Matrix4x4 view =  ClientCamera::instance().GetViewMatrix();
 	//Matrix4x4 project = SystemClass::Instance().renderModul()->GetOrthoMatrix();
 	Matrix4x4 project = SystemClass::Instance().renderModul()->GetProjectionMatrix();
+	Matrix4x4 newView;
+	D3DXMatrixLookAtLH((D3DXMATRIX*)&newView,&D3DXVECTOR3(0,2000,-2000),&D3DXVECTOR3(0,0,0),&D3DXVECTOR3(0,1,0));
 
 	world.Transport();
 	view.Transport();
 	project.Transport();
-
+	newView.Transport();
 	data->world = world;
 	data->view =view;
 	data->project = project;
+	data->lightView = newView;
 	return true;
 }
 
@@ -84,16 +87,16 @@ bool Light::InitBuffer( void** buffer )
 {
 	LightData* data = (LightData*)(*buffer);
 
-	data->lightColor.x = 1.0f;
-	data->lightColor.y = 0.25f;
-	data->lightColor.z = 0.25f;
-	data->lightColor.w = 1.0f;
+	data->lightColor.x = 0.5f;
+	data->lightColor.y = 0.5f;
+	data->lightColor.z = 0.5f;
+	data->lightColor.w = 0.5f;
 
 	data->lightPostion.x = 0;
 
-	data->lightPostion.y = 0;
+	data->lightPostion.y = 2000;
 
-	data->lightPostion.z = 100;
+	data->lightPostion.z = -2000;
 
 	data->lightPostion.w = 1;
 	return true;

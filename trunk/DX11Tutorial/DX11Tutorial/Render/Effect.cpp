@@ -111,7 +111,7 @@ bool Effect::load( const char* filename )
 			psTexturecode = psNode->IterateChildren("Texture", psTexturecode);
 		}
 
-	} while (pscbuffercode);
+	} while (psTexturecode);
 
 
 	//complier shader
