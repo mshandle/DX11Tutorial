@@ -42,6 +42,7 @@ public:
 		Matrix4x4 world;
 		Matrix4x4 view;
 		Matrix4x4 project;
+		Matrix4x4 lightView;
 	};
 public:
 		WorldViewProject();
