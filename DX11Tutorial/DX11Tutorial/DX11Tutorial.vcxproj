@@ -130,7 +130,9 @@
     <ClCompile Include="Sample\FrontTestSample.cpp" />
     <ClCompile Include="Sample\ModleLoaderSample.cpp" />
     <ClCompile Include="Sample\RTTSample.cpp" />
+    <ClCompile Include="Sample\ShadowMapSample.cpp" />
     <ClCompile Include="Sample\TerrainSample.cpp" />
+    <ClCompile Include="Sample\TexProjectSample.cpp" />
     <ClCompile Include="Sample\TextureSample.cpp" />
     <ClCompile Include="Sample\TextureUITest.cpp" />
     <ClCompile Include="Sample\XMLTestSample.cpp" />
@@ -185,7 +187,9 @@
     <ClInclude Include="Sample\ModleLoaderSample.h" />
     <ClInclude Include="Sample\RTTSample.h" />
     <ClInclude Include="Sample\SampleInterface.h" />
+    <ClInclude Include="Sample\ShadowMapSample.h" />
     <ClInclude Include="Sample\TerrainSample.h" />
+    <ClInclude Include="Sample\TexProjectSample.h" />
     <ClInclude Include="Sample\TextureSample.h" />
     <ClInclude Include="Sample\TextureUITest.h" />
     <ClInclude Include="Sample\XMLTestSample.h" />

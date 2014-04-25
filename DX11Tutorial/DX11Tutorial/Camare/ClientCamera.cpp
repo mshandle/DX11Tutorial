@@ -160,3 +160,8 @@ Matrix4x4 ClientCamera::GetUIMatrix()
 {
 	return m_UiViewMatirx;
 }
+
+void ClientCamera::SetViewMatrix( const Matrix4x4& mat )
+{
+	m_viewMatrix = mat;
+}
