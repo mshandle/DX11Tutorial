@@ -72,7 +72,7 @@ float4 main(PixelInputType input) : SV_TARGET
 	 	float det = saturate(dot(N,L));
 		float3 R = reflect(N,L);
 	  R = normalize(R);
-	 // float4 ambi = DiffuseTexture.Sample(SampleType,input. texcood);
+	 // float4 ambi = DiffuseTexture.Sample(SampleType,input.texcood);
 	 float4 ambi = float4(1.0,0.3,0.2,1.0);
 		return  ambi * (justVaule* (float4(1.0,1.0,1.0,1.0) - lightColor) *det *0.5 + lightColor*0.5  + 0.5f *float4(1.0,1.0,1.0,1.0)* pow(max(dot(V,R),0),10.0f));
 	
